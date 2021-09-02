@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { FormattedMessage } from "react-intl";
+import { useContext } from "react";
+import { theme } from "./Theme/theme";
+import { ThemeContext } from "./Theme/Provider";
+import ThemeProvider from "./Theme/Provider";
+import {Form} from "./Components/Form";
 
-function App() {
+
+const getStyle = (type) => {
+  return {
+    color: theme[type].color,
+    backgroundColor: theme[type].backgroundColor,
+  };
+};
+
+export default function App() {
+  const { mode, setMode } = useContext(ThemeContext);
+  const style = getStyle(mode);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider>
+      <div style={style} className="App">
+        <button onClick={setMode}>it's {mode} now</button>
+        <FormattedMessage id="hiMess" defaultMessage="Hello With Error" />
+        <Form/>
+      </div>
+
+    </ThemeProvider>
   );
 }
-
-export default App;
