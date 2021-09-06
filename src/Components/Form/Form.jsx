@@ -1,7 +1,7 @@
-import { Field, reduxForm } from "redux-form";
+import {Field, reduxForm, values} from "redux-form";
 import styled from "styled-components";
 import { validate } from "./validationForm";
-import axios from "axios";
+import {authenticate} from "../../api/user";
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
@@ -11,20 +11,9 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 );
 
 const RegisterForm = ({ handleSubmit }) => {
-  const mySubmit = (values) => {
-    axios({
-      method: "POST",
-      url: "http://localhost:8000/api/register",
-      data: {
-        username: values.username,
-        email: values.email,
-        password: values.password,
-      },
-    });
-  };
 
-    return (
-    <StyledForm onSubmit={handleSubmit(mySubmit)}>
+     return (
+    <StyledForm onSubmit={handleSubmit(authenticate)}>
       <Field name="username" type="text" label="Name" component={renderField} />
       <Field name="email" type="email" label="Email" component={renderField} />
       <Field
