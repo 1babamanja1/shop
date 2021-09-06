@@ -1,11 +1,94 @@
-import "./form.css";
-import {FormattedMessage} from "react-intl";
+import { Field, reduxForm } from "redux-form";
+import styled from "styled-components";
+import { validate } from "./validationForm";
+import axios from "axios";
 
-export const Form = () => {
-  return <form className='form'>
-    <FormattedMessage key='registration'/>
-    <input type='text' name='name' placeholder="Name"/>
-    <input type='password' name='pass' placeholder="Password"/>
-    <input type="submit"/>
-  </form>;
+const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <Input {...input} placeholder={label} type={type} />
+    {touched && error && <Error>{error}</Error>}
+  </div>
+);
+
+const RegisterForm = ({ handleSubmit }) => {
+  const mySubmit = (values) => {
+    axios({
+      method: "POST",
+      url: "http://localhost:8000/api/register",
+      data: {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      },
+    });
+  };
+
+    return (
+    <StyledForm onSubmit={handleSubmit(mySubmit)}>
+      <Field name="username" type="text" label="Name" component={renderField} />
+      <Field name="email" type="email" label="Email" component={renderField} />
+      <Field
+        name="password"
+        type="password"
+        label="Password"
+        component={renderField}
+      />
+      <Field
+        name="password2"
+        type="password"
+        label="Confirm Password"
+        component={renderField}
+      />
+      <Button type="submit">Register</Button>
+    </StyledForm>
+  );
 };
+
+export default reduxForm({ form: "registerForm", validate })(RegisterForm);
+
+const StyledForm = styled.form`
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid ${(props) => props.theme.color};
+  border-radius: 10px;
+  box-shadow: 2px 2px ${(props) => props.theme.color};
+  background-color: ${(props) => props.theme.backgroundColor};
+`;
+
+const Input = styled.input`
+  width: 250px;
+  height: 50px;
+  margin: 5px;
+  border: 1px solid ${(props) => props.theme.color};
+  border-radius: 10px;
+  box-shadow: 2px 2px ${(props) => props.theme.color};
+  outline: none;
+  color: ${(props) => props.theme.color};
+  background-color: ${(props) => props.theme.backgroundColor};
+
+  &::placeholder {
+    color: ${(props) => props.theme.color}
+
+`;
+
+const Button = styled.button`
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+  color: ${(props) => props.theme.backgroundColor};
+  background-color: ${(props) => props.theme.color};
+  border-radius: 10px;
+
+  &:hover {
+    background-color: darkgrey;
+    transition: 0.5s;
+  }
+`;
+let Error = styled.div`
+  font-size: 12px;
+  color: darkred;
+`;
