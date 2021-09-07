@@ -1,5 +1,5 @@
-import RegisterForm from "../Form/Form";
+import React from 'react';
+import RegisterForm from '../Form/Form';
 
-export const Registration = () => {
-    return <div><RegisterForm/></div>
-}
+const Registration = () => <div><RegisterForm /></div>;
+export default Registration;

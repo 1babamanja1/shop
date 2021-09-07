@@ -1,6 +1,5 @@
-import {FormattedMessage} from "react-intl";
+import { FormattedMessage } from 'react-intl';
+import React from 'react';
 
-export const Homepage =() => {
-
-    return <FormattedMessage id="hiMess" defaultMessage="Hello With Error" />
-}
+const Homepage = () => <FormattedMessage id="hiMess" defaultMessage="Hello With Error" />;
+export default Homepage;

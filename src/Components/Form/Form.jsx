@@ -1,39 +1,40 @@
-import {Field, reduxForm, values} from "redux-form";
-import styled from "styled-components";
-import { validate } from "./validationForm";
-import {authenticate} from "../../api/user";
+import { Field, reduxForm } from 'redux-form';
+import styled from 'styled-components';
+import React from 'react';
+import { validate } from './validationForm';
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
+const renderField = ({
+  label, type, meta: { touched, error },
+}) => (
   <div>
-    <Input {...input} placeholder={label} type={type} />
+    <Input placeholder={label} type={type} />
     {touched && error && <Error>{error}</Error>}
   </div>
 );
 
-const RegisterForm = ({ handleSubmit }) => {
+const submit = () => { console.log('Hi'); };
+// eslint-disable-next-line react/prop-types
+const RegisterForm = ({ handleSubmit }) => (
+  <StyledForm onSubmit={handleSubmit(submit)}>
+    <Field name="username" type="text" label="Name" component={renderField} />
+    <Field name="email" type="email" label="Email" component={renderField} />
+    <Field
+      name="password"
+      type="password"
+      label="Password"
+      component={renderField}
+    />
+    <Field
+      name="password2"
+      type="password"
+      label="Confirm Password"
+      component={renderField}
+    />
+    <Button type="submit">Register</Button>
+  </StyledForm>
+);
 
-     return (
-    <StyledForm onSubmit={handleSubmit(authenticate)}>
-      <Field name="username" type="text" label="Name" component={renderField} />
-      <Field name="email" type="email" label="Email" component={renderField} />
-      <Field
-        name="password"
-        type="password"
-        label="Password"
-        component={renderField}
-      />
-      <Field
-        name="password2"
-        type="password"
-        label="Confirm Password"
-        component={renderField}
-      />
-      <Button type="submit">Register</Button>
-    </StyledForm>
-  );
-};
-
-export default reduxForm({ form: "registerForm", validate })(RegisterForm);
+export default reduxForm({ form: 'registerForm', validate })(RegisterForm);
 
 const StyledForm = styled.form`
   width: 300px;
@@ -77,7 +78,7 @@ const Button = styled.button`
     transition: 0.5s;
   }
 `;
-let Error = styled.div`
+const Error = styled.div`
   font-size: 12px;
   color: darkred;
 `;

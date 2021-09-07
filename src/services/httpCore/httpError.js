@@ -6,11 +6,9 @@ class HttpError extends Error {
   }
 }
 
-const newHttpError = (error) => {
-  return new HttpError({
-    message: error.message,
-    name: error.name
-  });
-};
+const newHttpError = (error) => new HttpError({
+  message: error.message,
+  name: error.name,
+});
 
 export default newHttpError;
