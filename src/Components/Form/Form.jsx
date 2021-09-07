@@ -1,7 +1,8 @@
 import { Field, reduxForm } from 'redux-form';
 import styled from 'styled-components';
 import React from 'react';
-import { validate } from './validationForm';
+// import validate from './validationForm';
+import testRequest from '../../services/api/testRequest';
 
 const renderField = ({
   label, type, meta: { touched, error },
@@ -12,7 +13,7 @@ const renderField = ({
   </div>
 );
 
-const submit = () => { console.log('Hi'); };
+const submit = () => { testRequest(); };
 // eslint-disable-next-line react/prop-types
 const RegisterForm = ({ handleSubmit }) => (
   <StyledForm onSubmit={handleSubmit(submit)}>
@@ -34,7 +35,7 @@ const RegisterForm = ({ handleSubmit }) => (
   </StyledForm>
 );
 
-export default reduxForm({ form: 'registerForm', validate })(RegisterForm);
+export default reduxForm({ form: 'registerForm' })(RegisterForm);
 
 const StyledForm = styled.form`
   width: 300px;
