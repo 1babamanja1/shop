@@ -1,41 +1,64 @@
-import { Field, reduxForm } from 'redux-form';
 import styled from 'styled-components';
-import React from 'react';
-// import validate from './validationForm';
-import testRequest from '../../services/api/testRequest';
+import React, { useEffect, useState } from 'react';
+import validate from './validationRules';
+import { register } from '../../services/api/user';
 
-const renderField = ({
-  label, type, meta: { touched, error },
-}) => (
-  <div>
-    <Input placeholder={label} type={type} />
-    {touched && error && <Error>{error}</Error>}
-  </div>
-);
+const RegisterForm = () => {
+  const [regData, setRegData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    password2: '',
+  });
+  const [errors, setErrors] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setIsSubmitted(true);
+    setErrors(validate(regData));
+  };
 
-const submit = () => { testRequest(); };
-// eslint-disable-next-line react/prop-types
-const RegisterForm = ({ handleSubmit }) => (
-  <StyledForm onSubmit={handleSubmit(submit)}>
-    <Field name="username" type="text" label="Name" component={renderField} />
-    <Field name="email" type="email" label="Email" component={renderField} />
-    <Field
-      name="password"
-      type="password"
-      label="Password"
-      component={renderField}
-    />
-    <Field
-      name="password2"
-      type="password"
-      label="Confirm Password"
-      component={renderField}
-    />
-    <Button type="submit">Register</Button>
-  </StyledForm>
-);
+  useEffect(() => {
+    if (isSubmitted && Object.keys(errors).length === 0) {
+      register().then((res) => console.log(res));
+    }
+  }, [isSubmitted, errors, regData]);
+  return (
+    <StyledForm onSubmit={handleSubmit}>
+      <Input
+        name="username"
+        type="text"
+        placeholder="Name"
+        onChange={(e) => { setRegData({ ...regData, username: e.target.value }); }}
+      />
+      {errors.username && <Error>{errors.username}</Error>}
+      <Input
+        name="email"
+        type="email"
+        placeholder="Email"
+        onChange={(e) => { setRegData({ ...regData, email: e.target.value }); }}
+      />
+      {errors.email && <Error>{errors.email}</Error>}
+      <Input
+        name="password"
+        type="password"
+        placeholder="Password"
+        onChange={(e) => { setRegData({ ...regData, password: e.target.value }); }}
+      />
+      {errors.password && <Error>{errors.password}</Error>}
+      <Input
+        name="password2"
+        type="password"
+        placeholder="Confirm Password"
+        onChange={(e) => { setRegData({ ...regData, password2: e.target.value }); }}
+      />
+      {errors.password2 && <Error>{errors.password2}</Error>}
+      <Button type="submit">Register</Button>
+    </StyledForm>
+  );
+};
 
-export default reduxForm({ form: 'registerForm' })(RegisterForm);
+export default RegisterForm;
 
 const StyledForm = styled.form`
   width: 300px;

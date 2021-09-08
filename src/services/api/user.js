@@ -1,6 +1,6 @@
 import httpCore from '../httpCore';
 
-const authenticate = (payload) => {
+export const register = (payload) => {
   const endpoint = httpCore.createFetch({
     url: '',
     method: 'POST',
@@ -9,4 +9,10 @@ const authenticate = (payload) => {
   return endpoint();
 };
 
-export default authenticate;
+export const getUser = () => {
+  const endpoint = httpCore.createFetch({
+    url: '',
+    method: 'GET',
+  });
+  return endpoint();
+};

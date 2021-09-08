@@ -12,5 +12,9 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react'],
-  rules: {},
+  rules: {
+    'no-unused-vars': 'warn',
+    'react/prop-types': 'warn',
+    'import/prefer-default-export': 'warn',
+  },
 };

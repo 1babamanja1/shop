@@ -16,7 +16,7 @@ const validate = (values) => {
     errors.password = 'Password length should be from 8 to 15 characters';
   }
   if (values.password2 !== values.password) {
-    errors.password2 = 'Password mismatch';
+    errors.password2 = 'Passwords mismatch';
   }
   return errors;
 };
