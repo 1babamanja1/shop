@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import validate from './validationRules';
 import { register } from '../../services/api/user';
 
@@ -11,24 +11,33 @@ const RegisterForm = () => {
     password2: '',
   });
   const [errors, setErrors] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsSubmitted(true);
-    setErrors(validate(regData));
+    const newErrors = validate(regData);
+
+    if (Object.keys(newErrors).length === 0) {
+      try {
+        const response = await register(regData);
+        // добавь ообработку успешной регистрации
+        setErrors({});
+        console.log('tada', response);
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      setErrors(newErrors);
+    }
   };
 
-  useEffect(() => {
-    if (isSubmitted && Object.keys(errors).length === 0) {
-      register().then((res) => console.log(res));
-    }
-  }, [isSubmitted, errors, regData]);
   return (
     <StyledForm onSubmit={handleSubmit}>
+      {/* Создай Инпут как отдельный компонент с ошибками и тд */}
       <Input
         name="username"
         type="text"
         placeholder="Name"
+        // создай handler для етого
         onChange={(e) => { setRegData({ ...regData, username: e.target.value }); }}
       />
       {errors.username && <Error>{errors.username}</Error>}
@@ -53,6 +62,7 @@ const RegisterForm = () => {
         onChange={(e) => { setRegData({ ...regData, password2: e.target.value }); }}
       />
       {errors.password2 && <Error>{errors.password2}</Error>}
+      {/* Тоже самое с кнопкой */}
       <Button type="submit">Register</Button>
     </StyledForm>
   );
@@ -86,7 +96,7 @@ const Input = styled.input`
 
   &::placeholder {
     color: ${(props) => props.theme.color}
-
+  }
 `;
 
 const Button = styled.button`
