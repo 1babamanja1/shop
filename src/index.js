@@ -1,32 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { IntlProvider } from "react-intl";
-import ThemeProvider from "./Theme/Provider";
-import Rus from "./langs/ru.json";
-import Eng from "./langs/en-US.json";
-
-let local = navigator.language;
-let lang;
-switch (local) {
-  case "ru":
-    lang = Rus;
-    break;
-  default:
-    lang = Eng;
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import { IntlProvider } from 'react-intl';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { local, lang } from './services/langs/langSettings';
 
 ReactDOM.render(
+  // eslint-disable-next-line react/jsx-filename-extension
   <React.StrictMode>
     <IntlProvider locale={local} messages={lang}>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <App />
     </IntlProvider>
   </React.StrictMode>,
 
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 reportWebVitals();
