@@ -19,7 +19,8 @@ const Login = () => {
     try {
       const response = await login(logData);
       history.push('/login');
-      if (response.token === 'TESTKRASIVIYTOKEN') {
+      if (response.token) {
+        // создавать экшены, так не использвоать
         dispatch({ type: ACTIONS.SET_AUTHORIZED });
         history.push('/home');
       }

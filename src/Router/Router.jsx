@@ -6,7 +6,8 @@ import Registration from '../Components/Registration/Registration';
 
 export default function ShopRouter() {
   return (
-
+    // сделать /home защищенным
+    // добавить редирект с индекса
     <Router>
       <Route exact path="/home" component={Homepage} />
       <Route exact path="/registration" component={Registration} />
