@@ -17,11 +17,9 @@ class HttpClient {
       try {
         // const response = await this.axiosInstance(url, reqSettings);
         // test requestHandler need to change
-        const response = await requestHandler(url, { reqSettings, ...this.config });
-        return response;
+        return await requestHandler(url, { reqSettings, ...this.config });
       } catch (error) {
-        const err = newHttpError(error);
-        throw err;
+        throw newHttpError(error);
       }
     };
   }
