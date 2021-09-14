@@ -16,5 +16,7 @@ module.exports = {
     'no-unused-vars': 'warn',
     'react/prop-types': 'warn',
     'import/prefer-default-export': 'warn',
+    'react/react-in-jsx-scope': 'warn',
+    'max-len': 'warn',
   },
 };

@@ -3,7 +3,7 @@ const requestHandler = async (url, reqSettings) => {
 
   switch (url) {
     case 'registration': {
-      const { username, password } = reqSettings.data;
+      const { username, password } = reqSettings.reqSettings.data;
       if (username && password) {
         result = {
           success: true,
@@ -14,7 +14,7 @@ const requestHandler = async (url, reqSettings) => {
       break;
     }
     case 'login': {
-      const { username, password } = reqSettings.data;
+      const { username, password } = reqSettings.reqSettings.data;
       if (username === 'test' && password === 'test') {
         result = {
           token: 'TESTKRASIVIYTOKEN',

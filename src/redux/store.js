@@ -1,10 +1,12 @@
-import { combineReducers, createStore } from 'redux';
-import { reducer as formReducer } from 'redux-form';
+import { combineReducers, createStore, compose } from 'redux';
+import { userReducer } from './reducers/user';
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   combineReducers({
-    form: formReducer,
+    userReducer,
   }),
+  composeEnhancers(),
 );
 
 export default store;
