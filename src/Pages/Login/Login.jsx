@@ -13,11 +13,12 @@ const Login = () => {
   const [logData, setLogData] = useState({});
   const dispatch = useDispatch();
   const history = useHistory();
+
   const onChangeHandler = (event) => {
     setLogData({ ...logData, [event.target.name]: event.target.value });
   };
 
-  async function handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await login(logData);
@@ -28,7 +29,8 @@ const Login = () => {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
+
   return (
     <div>
       <Header>

@@ -22,6 +22,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <StyledApp>
+          {/* header here */}
           <ShopRouter />
         </StyledApp>
       </ThemeProvider>

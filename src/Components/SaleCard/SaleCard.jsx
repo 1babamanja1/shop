@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const SaleCard = ({ name, pic, details }) => (
-
   <StyledSaleCard>
     <Name><Link to={`/pokemons/${name.toLowerCase()}`}>{name}</Link></Name>
     <Body>
@@ -24,7 +23,6 @@ const SaleCard = ({ name, pic, details }) => (
           Category:
           {details.category}
         </span>
-
       </Info>
     </Body>
   </StyledSaleCard>
@@ -39,7 +37,11 @@ SaleCard.defaultProps = {
 SaleCard.propTypes = {
   name: PropTypes.string,
   pic: PropTypes.string,
-  details: PropTypes.objectOf(PropTypes.any),
+  details: PropTypes.objectOf({
+    height: PropTypes.number,
+    weight: PropTypes.number,
+    category: PropTypes.arrayOf(PropTypes.string),
+  }),
 };
 
 export default SaleCard;
@@ -67,11 +69,11 @@ const Name = styled.div`
   color: ${(props) => props.theme.color};}
 `;
 const Body = styled.div`
-display: flex;
-justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 `;
 
 const Info = styled.div`
-display: flex;
+  display: flex;
   flex-direction: column;
 `;

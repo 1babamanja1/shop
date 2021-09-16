@@ -9,9 +9,5 @@ const store = createStore(
   composeEnhancers(),
 );
 export const state = store.getState();
-store.subscribe(() => {
-  console.log('state changed');
-  console.log(state.userReducer);
-});
 
 export default store;
