@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import validate from '../Form/validationRules';
+import validate from '../../Components/Form/validationRules';
 import { register } from '../../services/api/user';
-import Form from '../Form';
-import Input from '../Input';
-import Button from '../Button';
+import Form from '../../Components/Form';
+import Input from '../../Components/Input';
+import Button from '../../Components/Button';
+import Header from '../../Components/Header';
 
 const Registration = () => {
   const history = useHistory();
@@ -40,10 +41,7 @@ const Registration = () => {
 
   return (
     <div>
-      {/* сделать компонент хидера */}
-      <nav><Link to="/login">Login</Link></nav>
-      <nav><Link to="/registration">Register</Link></nav>
-
+      <Header><Link to="/login">Login</Link></Header>
       <Form handleSubmit={handleSubmit}>
         <Input name="username" placeholder="Name" error={errors.username} onChangeHandler={onChangeHandler} />
         <Input name="email" placeholder="Email" type="email" error={errors.email} onChangeHandler={onChangeHandler} />

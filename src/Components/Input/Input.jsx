@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Input = ({
   name, type = 'text', placeholder, onChangeHandler, error,
@@ -14,6 +15,21 @@ const Input = ({
     {{ error } && <Error>{error}</Error>}
   </div>
 );
+
+Input.defaultProps = {
+  name: '',
+  type: '',
+  placeholder: '',
+  error: '',
+};
+
+Input.propTypes = {
+  name: PropTypes.string,
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChangeHandler: PropTypes.func.isRequired,
+  error: PropTypes.string,
+};
 
 export default Input;
 

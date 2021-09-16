@@ -1,25 +1,26 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import React from 'react';
-import Homepage from '../Components/Homepage/Homepage';
-import Login from '../Components/Login/Login';
-import Registration from '../Components/Registration/Registration';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Homepage from '../Pages/Homepage/Homepage';
+import Login from '../Pages/Login/Login';
+import Registration from '../Pages/Registration/Registration';
+import ProtectedRoute from './ProtectedRoute';
+import { getAuthorized } from '../redux/user/user-actions';
 
 export default function ShopRouter() {
+  const isAuthorized = useSelector(getAuthorized);
+
   return (
-    // сделать /home защищенным
-    // добавить редирект с индекса
     <Router>
-      <Route exact path="/home" component={Homepage} />
+      <Route exact path="/"><Redirect to="/login" /></Route>
+      <ProtectedRoute
+        exact
+        path="/home"
+        component={Homepage}
+        isAuth={isAuthorized}
+      />
       <Route exact path="/registration" component={Registration} />
       <Route exact path="/login" component={Login} />
     </Router>
   );
 }
-
-// const NavBar = styled.div`
-// display: flex;
-//   & *{
-//     text-decoration: none;
-//     margin: 5px;
-//   }
-// `;

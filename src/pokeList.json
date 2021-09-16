@@ -1,0 +1,31 @@
+[{
+  "id":"001",
+  "name": "Bulbasaur",
+  "pic": "imgs/001_bulbasaur.png",
+  "details": {
+    "height": 2.04,
+    "weight": 15.2,
+    "category": ["seed"]
+  }
+},
+  {
+    "id":"004",
+    "name": "Charmander",
+    "pic": "imgs/004_charmander.png",
+    "details": {
+      "height": 2.00,
+      "weight": 18.7,
+      "category": ["fire"]
+    }
+  },
+  {
+    "id":"007",
+    "name": "Squirtle",
+    "pic": "imgs/007_squirtle.png",
+    "details": {
+      "height": 1.08,
+      "weight": 19.8,
+      "category": ["water"]
+    }
+  }
+]

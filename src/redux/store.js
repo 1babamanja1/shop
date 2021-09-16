@@ -1,5 +1,5 @@
 import { combineReducers, createStore, compose } from 'redux';
-import { userReducer } from './reducers/user';
+import { userReducer } from './user/user-reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
@@ -8,5 +8,6 @@ const store = createStore(
   }),
   composeEnhancers(),
 );
+export const state = store.getState();
 
 export default store;

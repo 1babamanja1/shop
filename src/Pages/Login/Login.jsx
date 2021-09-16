@@ -1,37 +1,41 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import Form from '../Form';
-import Input from '../Input';
-import Button from '../Button';
+import Form from '../../Components/Form';
+import Input from '../../Components/Input';
+import Button from '../../Components/Button';
 import { login } from '../../services/api/user';
-import { ACTIONS } from '../../redux/constants';
+import Header from '../../Components/Header';
+import { getAuthorized, setAuthorized } from '../../redux/user/user-actions';
+import { state } from '../../redux';
 
 const Login = () => {
   const [logData, setLogData] = useState({});
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const onChangeHandler = (event) => {
     setLogData({ ...logData, [event.target.name]: event.target.value });
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await login(logData);
-      history.push('/login');
       if (response.token) {
-        // создавать экшены, так не использвоать
-        dispatch({ type: ACTIONS.SET_AUTHORIZED });
+        dispatch(setAuthorized());
         history.push('/home');
       }
     } catch (e) {
       console.log(e);
     }
   };
+
   return (
     <div>
-      <nav><Link to="/login">Login</Link></nav>
-      <nav><Link to="/registration">Register</Link></nav>
+      <Header>
+        <nav><Link to="/registration">Register</Link></nav>
+      </Header>
       <Form handleSubmit={handleSubmit}>
         <Input name="username" placeholder="name" onChangeHandler={onChangeHandler} />
         <Input name="password" placeholder="password" type="password" onChangeHandler={onChangeHandler} />
