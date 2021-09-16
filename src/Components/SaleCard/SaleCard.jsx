@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const SaleCard = ({ name, pic, details }) => (
 
   <StyledSaleCard>
-    <Name>{name}</Name>
+    <Name><Link to={`/pokemons/${name.toLowerCase()}`}>{name}</Link></Name>
     <Body>
-      <Pic img={pic} />
+      <Link to={`/pokemons/${name.toLowerCase()}`}>
+        <Pic img={pic} />
+      </Link>
       <Info>
         <span>
           Weight:
@@ -25,6 +29,18 @@ const SaleCard = ({ name, pic, details }) => (
     </Body>
   </StyledSaleCard>
 );
+
+SaleCard.defaultProps = {
+  name: '',
+  pic: '',
+  details: {},
+};
+
+SaleCard.propTypes = {
+  name: PropTypes.string,
+  pic: PropTypes.string,
+  details: PropTypes.objectOf(PropTypes.any),
+};
 
 export default SaleCard;
 
@@ -46,7 +62,9 @@ const Pic = styled.div`
 `;
 
 const Name = styled.div`
-
+  & *{
+  text-decoration: none;
+  color: ${(props) => props.theme.color};}
 `;
 const Body = styled.div`
 display: flex;

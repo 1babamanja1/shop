@@ -11,7 +11,12 @@ export default function ShopRouter() {
   return (
     <Router>
       <Route exact path="/"><Redirect to="/login" /></Route>
-      <ProtectedRoute exact path="/home" component={Homepage} isAuth={getAuthorized(state)} />
+      <ProtectedRoute
+        exact
+        path="/home"
+        component={Homepage}
+        isAuth="getAuthorized(state)"
+      />
       <Route exact path="/registration" component={Registration} />
       <Route exact path="/login" component={Login} />
     </Router>
