@@ -18,5 +18,7 @@ module.exports = {
     'import/prefer-default-export': 'warn',
     'react/react-in-jsx-scope': 'warn',
     'max-len': 'warn',
+    'react/jsx-props-no-spreading': 'warn',
+    'react/jsx-one-expression-per-line': 'warn',
   },
 };
