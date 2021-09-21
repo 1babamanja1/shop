@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import validate from '../../Components/Form/validationRules';
 import { register } from '../../services/api/user';
 import Form from '../../Components/Form';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
-import Header from '../../Components/Header';
 
 const Registration = () => {
   const history = useHistory();
@@ -41,8 +41,9 @@ const Registration = () => {
 
   return (
     <div>
-      <Header><Link to="/login">Login</Link></Header>
       <Form handleSubmit={handleSubmit}>
+        <Pic />
+        <Header>Registration</Header>
         <Input name="username" placeholder="Name" error={errors.username} onChangeHandler={onChangeHandler} />
         <Input name="email" placeholder="Email" type="email" error={errors.email} onChangeHandler={onChangeHandler} />
         <Input
@@ -65,3 +66,15 @@ const Registration = () => {
   );
 };
 export default Registration;
+
+const Pic = styled.div`
+  width: 110px;
+  height: 80px;
+  background-image: url('imgs/register_abra.png');
+  background-position: center;
+  background-size: cover;
+  `;
+
+const Header = styled.h2`
+  color: ${(props) => props.theme.color}
+`;

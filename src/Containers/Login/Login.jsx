@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 import Form from '../../Components/Form';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 import { login } from '../../services/api/user';
-import Header from '../../Components/Header';
-import { getAuthorized, setAuthorized } from '../../redux/user/user-actions';
-import { state } from '../../redux';
+import { setAuthorized } from '../../redux/user/actions';
 
 const Login = () => {
   const [logData, setLogData] = useState({});
@@ -27,21 +26,32 @@ const Login = () => {
         history.push('/home');
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
   return (
     <div>
-      <Header>
-        <nav><Link to="/registration">Register</Link></nav>
-      </Header>
       <Form handleSubmit={handleSubmit}>
-        <Input name="username" placeholder="name" onChangeHandler={onChangeHandler} />
-        <Input name="password" placeholder="password" type="password" onChangeHandler={onChangeHandler} />
+        <Header>Login</Header>
+        <Pic />
+        <Input name="username" placeholder="Name" onChangeHandler={onChangeHandler} />
+        <Input name="password" placeholder="Password" type="password" onChangeHandler={onChangeHandler} />
         <Button type="submit" buttonName="Login" />
       </Form>
     </div>
   );
 };
 export default Login;
+
+const Pic = styled.div`
+  width: 200px;
+  height: 160px;
+  background-image: url('imgs/welcome_snorlax.png');
+  background-position: center;
+  background-size: cover;
+`;
+
+const Header = styled.h2`
+  color: ${(props) => props.theme.color}
+`;

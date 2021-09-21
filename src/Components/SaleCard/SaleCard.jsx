@@ -2,78 +2,80 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Type from '../Type';
 
-const SaleCard = ({ name, pic, details }) => (
+const SaleCard = ({ name, pic, type }) => (
   <StyledSaleCard>
-    <Name><Link to={`/pokemons/${name.toLowerCase()}`}>{name}</Link></Name>
-    <Body>
-      <Link to={`/pokemons/${name.toLowerCase()}`}>
+    <div>
+      <Name><Link to={`/pokemons/${name}`}>{name}</Link></Name>
+      <Link to={`/pokemons/${name}`}>
         <Pic img={pic} />
       </Link>
-      <Info>
-        <span>
-          Weight:
-          {details.weight}
-        </span>
-        <span>
-          Height:
-          {details.height}
-        </span>
-        <span>
-          Category:
-          {details.category}
-        </span>
-      </Info>
-    </Body>
+    </div>
+    <div>
+      <h4>Type:</h4>
+      {type.map((item) => Type(item, name))}
+
+    </div>
   </StyledSaleCard>
 );
 
 SaleCard.defaultProps = {
   name: '',
   pic: '',
-  details: {},
+  type: [],
+  details: {
+    height: 0,
+    weight: 0,
+    category: '',
+  },
 };
 
 SaleCard.propTypes = {
   name: PropTypes.string,
   pic: PropTypes.string,
-  details: PropTypes.objectOf({
+  type: PropTypes.arrayOf(PropTypes.string),
+  details: PropTypes.shape({
     height: PropTypes.number,
     weight: PropTypes.number,
-    category: PropTypes.arrayOf(PropTypes.string),
+    category: PropTypes.string,
   }),
 };
 
 export default SaleCard;
 
 const StyledSaleCard = styled.div`
-  min-width: 300px;
-  height: 200px;
-  width: 25%;
-  border: 1px solid green;
-  margin: 5px;
+  height: 350px;
+  padding: 5px 10px;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  
+  border: 3px solid #535B6C;
+  border-radius: 10px;
+  
+  @media (max-width: 599px) {
+    flex-direction: row;
+    justify-content: space-around;
+    height: 250px;
+  }
+  & *{
+    color: ${(props) => props.theme.color};
+  }
 `;
 
 const Pic = styled.div`
-  width: 170px;
-  height: 170px ;
+  width: 200px;
+  height: 200px;
   background-image: url(${(props) => props.img});
-  background-color: lightcyan;
   background-position: center;
   background-size: contain;
 `;
 
-const Name = styled.div`
-  & *{
-  text-decoration: none;
-  color: ${(props) => props.theme.color};}
-`;
-const Body = styled.div`
-  display: flex;
-  justify-content: space-around;
-`;
-
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
+const Name = styled.h2`
+  & * {
+    text-decoration: none;
+  }
 `;

@@ -1,33 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Colors } from '../../Theme/theme';
 
 const Button = ({ onClick, buttonName, type }) => (
-  <StyledButton type={type} onClick={onClick}>{buttonName}</StyledButton>);
+  <StyledButton type={type} onClick={onClick}><h4>{buttonName}</h4></StyledButton>);
+
+export default Button;
 
 Button.defaultProps = {
   buttonName: '',
   type: '',
+  onClick: () => {},
 };
 
 Button.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   buttonName: PropTypes.string,
   type: PropTypes.string,
 };
 
-export default Button;
-
 const StyledButton = styled.button`
-  width: 100px;
-  height: 50px;
-  cursor: pointer;
-  color: ${(props) => props.theme.backgroundColor};
-  background-color: ${(props) => props.theme.color};
+  min-width: 100px;
+  padding: 10px;
+  background-color: ${Colors('orange')};
+  color: ${Colors('light-text')};
+  outline: none;
+  border: none;
   border-radius: 10px;
-
+  cursor: pointer;
+  
   &:hover {
-    background-color: darkgrey;
+    box-shadow: 0 15px 30px -10px inset ${(props) => props.theme.color};
     transition: 0.5s;
   }
 `;

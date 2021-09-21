@@ -37,10 +37,10 @@ const StyledInput = styled.input`
   width: 250px;
   height: 50px;
   margin: 5px;
-  border: 1px solid ${(props) => props.theme.color};
-  border-radius: 10px;
-  box-shadow: 2px 2px ${(props) => props.theme.color};
+  padding-left: 5px;
+  border-radius: 5px;
   outline: none;
+  border: 1px solid ${(props) => props.theme.color};
   color: ${(props) => props.theme.color};
   background-color: ${(props) => props.theme.backgroundColor};
 

@@ -1,31 +1,26 @@
-import React, { useState } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
-import { Provider } from 'react-redux';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { Provider, useSelector } from 'react-redux';
 import { light, dark, GlobalStyles } from './Theme/theme';
-import ShopRouter from './Router/Router';
+import ShopRouter from './Containers/Router/Router';
 import store from './redux/store';
-import Button from './Components/Button';
-
-const StyledApp = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import getCurrentTheme from './redux/theme/selectors';
 
 export default function App() {
-  const [theme, setTheme] = useState(light);
-  const themeToggle = () => {
-    setTheme(theme === light ? dark : light);
-  };
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <StyledApp>
-          {/* header here */}
-          <ShopRouter />
-        </StyledApp>
-      </ThemeProvider>
+      <Body />
     </Provider>
   );
 }
+const Body = () => {
+  const currentTheme = useSelector(getCurrentTheme);
+  const theme = (currentTheme === 'light' ? light : dark);
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <ShopRouter />
+    </ThemeProvider>
+  );
+};

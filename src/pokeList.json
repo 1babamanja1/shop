@@ -2,30 +2,46 @@
   "id":"001",
   "name": "Bulbasaur",
   "pic": "imgs/001_bulbasaur.png",
+  "type": ["Grass", "Poison"],
   "details": {
     "height": 2.04,
     "weight": 15.2,
-    "category": ["seed"]
+    "category": "seed"
   }
 },
   {
     "id":"004",
     "name": "Charmander",
     "pic": "imgs/004_charmander.png",
+    "type": ["Fire"],
     "details": {
       "height": 2.00,
       "weight": 18.7,
-      "category": ["fire"]
+      "category": "lizard"
     }
   },
   {
-    "id":"007",
+    "id": "007",
     "name": "Squirtle",
     "pic": "imgs/007_squirtle.png",
+    "type": [
+      "Water"
+    ],
     "details": {
       "height": 1.08,
       "weight": 19.8,
-      "category": ["water"]
+      "category": "Tiny Turtle"
+    }
+  },
+  {
+    "id":"011",
+    "name": "Metapod",
+    "pic": "imgs/011_metapod.png",
+    "type": ["Bug"],
+    "details": {
+      "height": 2.04,
+      "weight": 21.8,
+      "category": "Cocoon"
     }
   }
 ]
