@@ -20,7 +20,7 @@ export default function ShopRouter() {
       <Header />
       <Body>
         <Container>
-          <Route exact path="/"><Redirect to="/login" /></Route>
+          <Route exact path="/"><Redirect to="/home" /></Route>
           <ProtectedRoute
             exact
             path="/home"

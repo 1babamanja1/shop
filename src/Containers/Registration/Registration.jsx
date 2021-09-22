@@ -70,7 +70,7 @@ export default Registration;
 const Pic = styled.div`
   width: 110px;
   height: 80px;
-  background-image: url('imgs/register_abra.png');
+  background-image: url('/imgs/register_abra.png');
   background-position: center;
   background-size: cover;
   `;

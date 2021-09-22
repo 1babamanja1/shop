@@ -13,7 +13,7 @@ const BigSaleCard = () => {
 
   return (
     <StyledCard>
-      <Pic img={pokeData.pic} />
+      <Pic img={`/${pokeData.pic}`} />
       {pokeData.name}
       {pokeData.type}
       {pokeData.details.weight}

@@ -9,7 +9,7 @@ const SaleCard = ({ name, pic, type }) => (
     <div>
       <Name><Link to={`/pokemons/${name}`}>{name}</Link></Name>
       <Link to={`/pokemons/${name}`}>
-        <Pic img={pic} />
+        <Pic img={`/${pic}`} />
       </Link>
     </div>
     <div>

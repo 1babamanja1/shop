@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { getFromLocalStorage } from '../../services/localStorage';
 
 export default function ProtectedRoute({ isAuth, component: Component, ...rest }) {
   return (
@@ -10,9 +11,8 @@ export default function ProtectedRoute({ isAuth, component: Component, ...rest }
     />
   );
 }
-
 ProtectedRoute.defaultProps = {
-  isAuth: false,
+  isAuth: !!getFromLocalStorage('isAuth'),
   component: () => {},
 };
 
