@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Grid } from '@mui/material';
 
 import SaleCard from '../../Components/SaleCard';
 import { getPokes } from '../../redux/pokemons/selectors';
+import { getPokeListFromServer } from '../../redux/pokemons/actions';
 
 const Homepage = () => {
+  const dispatch = useDispatch();
+  useEffect(() => { dispatch(getPokeListFromServer()); }, [dispatch]);
+
   const { formatMessage } = useIntl();
   const pokeListFromServer = useSelector(getPokes);
+
   return (
     <Grid container spacing={1}>
       {pokeListFromServer.map((pokemon) => (

@@ -1,5 +1,5 @@
 const defaultState = {
-  pokeList: {},
+  pokeList: [],
 };
 
 function pokeReducer(state = defaultState, action) {
