@@ -9,3 +9,7 @@ export const setUnauthorized = () => ({
 export const getInitAuthorization = () => ({
   type: 'INIT_AUTHORIZATION',
 });
+
+export const storeAuth = () => ({
+  type: 'STORE_AUTHORIZED',
+});

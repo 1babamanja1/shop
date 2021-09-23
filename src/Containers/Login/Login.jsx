@@ -1,19 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Form from '../../Components/Form';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 import { login } from '../../services/api/user';
-import { setAuthorized, getInitAuthorization } from '../../redux/user/actions';
+import { setAuthorized } from '../../redux/user/actions';
 
 const Login = () => {
   const [logData, setLogData] = useState({});
   const dispatch = useDispatch();
   const history = useHistory();
-
-  useEffect(() => { dispatch(getInitAuthorization()); }, [dispatch]);
 
   const onChangeHandler = (event) => {
     setLogData({ ...logData, [event.target.name]: event.target.value });

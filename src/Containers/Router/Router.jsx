@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import Header from '../../Components/Header';
@@ -11,9 +11,14 @@ import BigSaleCard from '../../Components/BigSaleCard';
 import ProtectedRoute from './ProtectedRoute';
 
 import { getAuthorized } from '../../redux/user/selectors';
+import { getPokeList } from '../../redux/pokemons/actions';
+import Cart from '../Cart';
 
 export default function ShopRouter() {
   const isAuthorized = useSelector(getAuthorized);
+
+  const dispatch = useDispatch();
+  useEffect(() => { if (isAuthorized) dispatch(getPokeList()); }, [dispatch, isAuthorized]);
 
   return (
     <Router>
@@ -30,6 +35,7 @@ export default function ShopRouter() {
           <Route exact path="/registration" component={Registration} />
           <Route exact path="/login" component={Login} />
           <Route path="/pokemons/:pokeName" component={BigSaleCard} />
+          <Route exact path="/cart" component={Cart} />
         </Container>
       </Body>
     </Router>

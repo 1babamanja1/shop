@@ -3,4 +3,4 @@ export const updatePokeList = (payload) => ({
   payload,
 });
 
-export const getPokeListFromServer = () => ({ type: 'GET_POKELIST' });
+export const getPokeList = () => ({ type: 'GET_POKELIST' });

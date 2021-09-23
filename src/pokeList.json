@@ -1,7 +1,7 @@
 [{
   "id":"001",
   "name": "Bulbasaur",
-  "pic": "imgs/001_bulbasaur.png",
+  "pic": "/imgs/001_bulbasaur.png",
   "type": ["Grass", "Poison"],
   "details": {
     "height": 2.04,
@@ -12,7 +12,7 @@
   {
     "id":"004",
     "name": "Charmander",
-    "pic": "imgs/004_charmander.png",
+    "pic": "/imgs/004_charmander.png",
     "type": ["Fire"],
     "details": {
       "height": 2.00,
@@ -23,7 +23,7 @@
   {
     "id": "007",
     "name": "Squirtle",
-    "pic": "imgs/007_squirtle.png",
+    "pic": "/imgs/007_squirtle.png",
     "type": [
       "Water"
     ],
@@ -36,7 +36,7 @@
   {
     "id":"011",
     "name": "Metapod",
-    "pic": "imgs/011_metapod.png",
+    "pic": "/imgs/011_metapod.png",
     "type": ["Bug"],
     "details": {
       "height": 2.04,
