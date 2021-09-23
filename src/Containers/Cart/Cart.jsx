@@ -8,7 +8,7 @@ const Cart = () => {
   return (
     <div>
       {cart.map((item) => (
-        <div>
+        <div key={`cart_${item.name}`}>
           {item.name}
           <button type="button" onClick={() => dispatch(removeFromCart(item))}> Remove from cart </button>
           <div />
