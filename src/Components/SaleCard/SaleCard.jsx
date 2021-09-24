@@ -2,23 +2,33 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
 import Type from '../Type';
+import { Colors } from '../../Theme/theme';
+import { addToCart } from '../../redux/cart/actions';
 
-const SaleCard = ({ name, pic, type }) => (
-  <StyledSaleCard>
-    <div>
-      <Name><Link to={`/pokemons/${name}`}>{name}</Link></Name>
-      <Link to={`/pokemons/${name}`}>
-        <Pic img={pic} />
-      </Link>
-    </div>
-    <div>
-      <h4>Type:</h4>
-      {type.map((item) => Type(item, name))}
-
-    </div>
-  </StyledSaleCard>
-);
+const SaleCard = ({ name, pic, type }) => {
+  const dispatch = useDispatch();
+  return (
+    <StyledSaleCard>
+      <div>
+        <Header>
+          <Link to={`/pokemons/${name}`}>{name}</Link>
+          <FontAwesomeIcon icon={faCartPlus} onClick={() => dispatch(addToCart({ name }))} />
+        </Header>
+        <Link to={`/pokemons/${name}`}>
+          <Pic img={pic} />
+        </Link>
+      </div>
+      <div>
+        <h4>Type:</h4>
+        {type.map((item) => Type(item, name))}
+      </div>
+    </StyledSaleCard>
+  );
+};
 
 SaleCard.defaultProps = {
   name: '',
@@ -63,6 +73,7 @@ const StyledSaleCard = styled.div`
   }
   & *{
     color: ${(props) => props.theme.color};
+    text-decoration: none;
   }
 `;
 
@@ -74,8 +85,15 @@ const Pic = styled.div`
   background-size: contain;
 `;
 
-const Name = styled.h2`
-  & * {
-    text-decoration: none;
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  & *{
+    cursor: pointer;
+    &:hover{
+      color: ${Colors('orange')};
+    }
   }
+  
 `;

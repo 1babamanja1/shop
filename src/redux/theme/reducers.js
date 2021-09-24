@@ -1,5 +1,7 @@
+import { getFromLocalStorage, saveToLocalStorage } from '../../services/localStorage';
+
 const defaultState = {
-  theme: 'light',
+  theme: getFromLocalStorage('theme'),
 };
 
 function themeReducer(state = defaultState, action) {
@@ -7,6 +9,7 @@ function themeReducer(state = defaultState, action) {
     case 'CHANGE_THEME': {
       let newTheme = state.theme;
       newTheme = (newTheme === 'light' ? 'dark' : 'light');
+      saveToLocalStorage('theme', newTheme);
       return { ...state, theme: newTheme };
     }
     default: return state;

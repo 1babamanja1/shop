@@ -1,11 +1,14 @@
 import pokeList from '../../pokeList.json';
 import httpCore from '../httpCore';
 
-export const getPokemon = () => {
+const getPokemon = () => {
   const endpoint = httpCore.createFetch({
     url: '/pokemons',
     method: 'GET',
   });
-  const pokes = pokeList;
+  let pokes = endpoint();
+  pokes = pokeList;
   return pokes;
 };
+
+export default getPokemon;

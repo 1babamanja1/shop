@@ -10,6 +10,7 @@ import { setAuthorized } from '../../redux/user/actions';
 
 const Login = () => {
   const [logData, setLogData] = useState({});
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -26,7 +27,7 @@ const Login = () => {
         history.push('/home');
       }
     } catch (e) {
-      console.error(e);
+      setErrors({ regError: e.message });
     }
   };
 
@@ -36,7 +37,13 @@ const Login = () => {
         <Header>Login</Header>
         <Pic />
         <Input name="username" placeholder="Name" onChangeHandler={onChangeHandler} />
-        <Input name="password" placeholder="Password" type="password" onChangeHandler={onChangeHandler} />
+        <Input
+          name="password"
+          placeholder="Password"
+          type="password"
+          onChangeHandler={onChangeHandler}
+          error={errors.regError}
+        />
         <Button type="submit" buttonName="Login" />
       </Form>
     </div>
@@ -47,7 +54,7 @@ export default Login;
 const Pic = styled.div`
   width: 200px;
   height: 160px;
-  background-image: url('imgs/welcome_snorlax.png');
+  background-image: url('/imgs/welcome_snorlax.png');
   background-position: center;
   background-size: cover;
 `;

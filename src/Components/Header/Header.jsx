@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DarkModeToggle from 'react-dark-mode-toggle';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import changeTheme from '../../redux/theme/actions';
-import { getAuthorized } from '../../redux/user/selectors';
+import getAuthorized from '../../redux/user/selectors';
 import { setUnauthorized } from '../../redux/user/actions';
 import getCurrentTheme from '../../redux/theme/selectors';
 import { Colors } from '../../Theme/theme';
+import { getCartCounter } from '../../redux/cart/selectors';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -28,10 +31,16 @@ export default Header;
 
 const MainNav = () => {
   const dispatch = useDispatch();
+  const cartCounter = useSelector(getCartCounter);
   return (
-    <StyledNav props="space-between">
+    <StyledNav props="flex-end">
       <Link to="/home">Home</Link>
+      <Link to="/cart">
+        <FontAwesomeIcon icon={faShoppingCart} />
+        {cartCounter}
+      </Link>
       <Link to="/login" onClick={() => dispatch(setUnauthorized())}>Logout</Link>
+
     </StyledNav>
   );
 };

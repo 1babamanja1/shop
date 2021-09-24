@@ -1,1 +1,2 @@
-export const getAuthorized = (state) => state.userReducer.isAuthorized;
+const getAuthorized = (state) => state.userReducer.isAuthorized;
+export default getAuthorized;

@@ -3,7 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Colors } from '../../Theme/theme';
 
-const Form = ({ handleSubmit, children }) => <StyledForm onSubmit={handleSubmit}>{children}</StyledForm>;
+const Form = ({
+  handleSubmit,
+  children,
+}) => <StyledForm onSubmit={handleSubmit}>{children}</StyledForm>;
 export default Form;
 
 Form.propTypes = {

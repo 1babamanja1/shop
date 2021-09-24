@@ -3,13 +3,13 @@ import { useIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Grid } from '@mui/material';
-
 import SaleCard from '../../Components/SaleCard';
 import { getPokes } from '../../redux/pokemons/selectors';
 
 const Homepage = () => {
   const { formatMessage } = useIntl();
   const pokeListFromServer = useSelector(getPokes);
+
   return (
     <Grid container spacing={1}>
       {pokeListFromServer.map((pokemon) => (

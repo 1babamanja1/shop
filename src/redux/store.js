@@ -5,7 +5,8 @@ import createSagaMiddleWare from 'redux-saga';
 import userReducer from './user/reducers';
 import themeReducer from './theme/reducers';
 import pokeReducer from './pokemons/reducers';
-import { sagaWatcher } from './pokemons/sagas';
+import { sagaWatcher } from './sagas';
+import cartReducer from './cart/reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -16,9 +17,11 @@ const store = createStore(
     userReducer,
     themeReducer,
     pokeReducer,
+    cartReducer,
   }),
   composeEnhancers(applyMiddleware(saga)),
 );
+
 export const state = store.getState();
 
 saga.run(sagaWatcher);

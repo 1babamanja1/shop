@@ -1,5 +1,7 @@
+import { getFromLocalStorage } from '../../services/localStorage';
+
 const defaultState = {
-  isAuthorized: false,
+  isAuthorized: getFromLocalStorage('isAuth') || false,
 };
 
 function userReducer(state = defaultState, action) {
