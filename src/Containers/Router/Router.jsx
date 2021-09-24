@@ -9,34 +9,44 @@ import Login from '../Login/Login';
 import Registration from '../Registration/Registration';
 import BigSaleCard from '../../Components/BigSaleCard';
 import ProtectedRoute from './ProtectedRoute';
-
-import { getAuthorized } from '../../redux/user/selectors';
-import { getPokeList } from '../../redux/pokemons/actions';
 import Cart from '../Cart';
+
+import getAuthorized from '../../redux/user/selectors';
+import { getPokeList } from '../../redux/pokemons/actions';
+import { getLoadingStatus } from '../../redux/pokemons/selectors';
 
 export default function ShopRouter() {
   const isAuthorized = useSelector(getAuthorized);
+  const isLoading = useSelector(getLoadingStatus);
 
   const dispatch = useDispatch();
   useEffect(() => { if (isAuthorized) dispatch(getPokeList()); }, [dispatch, isAuthorized]);
+
+  const LoadedPage = () => (
+    <Container>
+      <Route exact path="/"><Redirect to="/home" /></Route>
+      <ProtectedRoute
+        exact
+        path="/home"
+        component={Homepage}
+        isAuth={isAuthorized}
+      />
+      <Route exact path="/registration" component={Registration} />
+      <Route exact path="/login" component={Login} />
+      <ProtectedRoute exact path="/pokemons/:pokeName" component={BigSaleCard} isAuth={isAuthorized} />
+      <ProtectedRoute exact path="/cart" component={Cart} isAuth={isAuthorized} />
+    </Container>
+  );
+
+  const Preloader = () => <div>Preloader</div>;
+
+  const body = (!isLoading) ? <LoadedPage /> : <Preloader />;
 
   return (
     <Router>
       <Header />
       <Body>
-        <Container>
-          <Route exact path="/"><Redirect to="/home" /></Route>
-          <ProtectedRoute
-            exact
-            path="/home"
-            component={Homepage}
-            isAuth={isAuthorized}
-          />
-          <Route exact path="/registration" component={Registration} />
-          <Route exact path="/login" component={Login} />
-          <Route path="/pokemons/:pokeName" component={BigSaleCard} />
-          <Route exact path="/cart" component={Cart} />
-        </Container>
+        {body}
       </Body>
     </Router>
   );

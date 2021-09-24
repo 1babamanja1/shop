@@ -3,7 +3,6 @@ import { useIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Grid } from '@mui/material';
-
 import SaleCard from '../../Components/SaleCard';
 import { getPokes } from '../../redux/pokemons/selectors';
 

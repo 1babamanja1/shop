@@ -8,7 +8,6 @@ import getCurrentTheme from './redux/theme/selectors';
 
 export default function App() {
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <Provider store={store}>
       <Body />
     </Provider>

@@ -1,7 +1,7 @@
 import { getFromLocalStorage } from '../../services/localStorage';
 
 const defaultState = {
-  isAuthorized: getFromLocalStorage('isAuth'),
+  isAuthorized: getFromLocalStorage('isAuth') || false,
 };
 
 function userReducer(state = defaultState, action) {
@@ -11,10 +11,6 @@ function userReducer(state = defaultState, action) {
     }
     case 'SET_UNAUTHORIZED': {
       return { ...state, isAuthorized: false };
-    }
-    case 'INIT_AUTHORIZATION': {
-      const currentState = getFromLocalStorage('isAuth');
-      return { ...state, isAuthorized: currentState };
     }
     default: return state;
   }

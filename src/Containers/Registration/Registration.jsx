@@ -27,7 +27,8 @@ const Registration = () => {
         setErrors({});
         if (response.success) { history.push('/login'); }
       } catch (e) {
-        console.error(e);
+        event.preventDefault();
+        setErrors({ server: 'Something went wrong, please try again later' });
       }
     } else {
       setErrors(newErrors);
@@ -57,7 +58,7 @@ const Registration = () => {
           name="password2"
           placeholder="Confirm Password"
           type="password"
-          error={errors.password2}
+          error={errors.password2 || errors.server}
           onChangeHandler={onChangeHandler}
         />
         <Button type="submit" buttonName="Register" />
