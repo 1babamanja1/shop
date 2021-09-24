@@ -1,22 +1,28 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
+
 import Type from '../Type';
 import { Colors } from '../../Theme/theme';
 import { addToCart } from '../../redux/cart/actions';
 
 const SaleCard = ({ name, pic, type }) => {
   const dispatch = useDispatch();
+  const clickHandler = () => dispatch(addToCart({ name }));
+
   return (
     <StyledSaleCard>
       <div>
         <Header>
-          <Link to={`/pokemons/${name}`}>{name}</Link>
-          <FontAwesomeIcon icon={faCartPlus} onClick={() => dispatch(addToCart({ name }))} />
+          <Link to={`/pokemons/${name}`}><h3>{name}</h3></Link>
+          <h3>
+            <FontAwesomeIcon icon={faCartPlus} onClick={clickHandler} />
+          </h3>
         </Header>
         <Link to={`/pokemons/${name}`}>
           <Pic img={pic} />
@@ -93,6 +99,7 @@ const Header = styled.div`
     cursor: pointer;
     &:hover{
       color: ${Colors('orange')};
+      transition: 0.3s;
     }
   }
   

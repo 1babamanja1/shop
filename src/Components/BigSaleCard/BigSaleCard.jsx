@@ -1,25 +1,23 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { getPokes } from '../../redux/pokemons/selectors';
+
+import PropTypes from 'prop-types';
 import Type from '../Type';
 import Button from '../Button';
 import { addToCart } from '../../redux/cart/actions';
 
-const BigSaleCard = () => {
-  const pokeList = useSelector(getPokes);
-  const { pokeName } = useParams();
-  const pokeData = pokeList.find((item) => item.name === pokeName);
-  const dispatch = useDispatch();
+const BigSaleCard = ({ name, pic, type }) => {
+  const dispatch = useDispatch;
+  const clickHandler = () => dispatch(addToCart({ name }));
+
   return (
     <StyledCard>
-      {pokeData.name}
-      <Pic img={pokeData.pic} />
+      {name}
+      <Pic img={pic} />
       <Body>
-        {pokeData.type}
-        {pokeData.type.map((item) => Type(item, pokeData.name))}
-        <Button buttonName="Add to Cart" onClick={() => dispatch(addToCart({ name: pokeData.name }))} />
+        {type.map((item) => Type(item, name))}
+        <Button buttonName="Add to Cart" onClick={clickHandler} />
       </Body>
     </StyledCard>
   );
@@ -27,10 +25,32 @@ const BigSaleCard = () => {
 
 export default BigSaleCard;
 
+BigSaleCard.defaultProps = {
+  name: '',
+  pic: '',
+  type: [],
+  details: {
+    height: 0,
+    weight: 0,
+    category: '',
+  },
+};
+
+BigSaleCard.propTypes = {
+  name: PropTypes.string,
+  pic: PropTypes.string,
+  type: PropTypes.arrayOf(PropTypes.string),
+  details: PropTypes.shape({
+    height: PropTypes.number,
+    weight: PropTypes.number,
+    category: PropTypes.string,
+  }),
+};
+
 const StyledCard = styled.div`
   width: 900px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
 `;
 

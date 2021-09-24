@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
+
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+
 import Form from '../../Components/Form';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
+
 import { login } from '../../services/api/user';
 import { setAuthorized } from '../../redux/user/actions';
 
 const Login = () => {
   const [logData, setLogData] = useState({});
   const [errors, setErrors] = useState({});
+
   const dispatch = useDispatch();
   const history = useHistory();
 

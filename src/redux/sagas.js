@@ -6,11 +6,12 @@ import getPokemon from '../services/api/pokemons';
 import {
   failLoading,
   getPokeList, startLoading, succeedLoading, updatePokeList,
-} from './pokemons/actions';
+} from './common/dataLoading/actions';
 import { saveToLocalStorage, saveToSessionStorage } from '../services/localStorage';
 import { setAuthorized, setUnauthorized } from './user/actions';
 import { addToCart, clearCart, removeFromCart } from './cart/actions';
 import { getCart, getCartCounter } from './cart/selectors';
+import getAuthorized from './user/selectors';
 
 const delay = (del) => new Promise((resolve) => setTimeout(() => resolve(true), del));
 
@@ -27,12 +28,9 @@ export function* getPokemons() {
 }
 
 export function* setAuthToLocalStorage() {
-  yield saveToLocalStorage('isAuth', true);
+  const isAuth = yield select(getAuthorized);
+  yield saveToLocalStorage('isAuth', isAuth);
 }
-export function* setUnauthToLocalStorage() {
-  yield saveToLocalStorage('isAuth', false);
-}
-
 export function* saveCartToSessionStorage() {
   const cart = yield select(getCart);
   const cartCounter = yield select(getCartCounter);

@@ -4,7 +4,7 @@ const defaultState = {
   pokeList: [],
 };
 
-function pokeReducer(state = defaultState, action) {
+function commonReducer(state = defaultState, action) {
   switch (action.type) {
     case 'UPDATE_POKELIST': {
       return { ...state, pokeList: action.payload };
@@ -22,4 +22,4 @@ function pokeReducer(state = defaultState, action) {
   }
 }
 
-export default pokeReducer;
+export default commonReducer;

@@ -1,4 +1,4 @@
-import { getFromLocalStorage, saveToLocalStorage } from '../../services/localStorage';
+import { getFromLocalStorage, saveToLocalStorage } from '../../../services/localStorage';
 
 const defaultState = {
   theme: getFromLocalStorage('theme'),

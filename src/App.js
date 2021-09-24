@@ -4,7 +4,7 @@ import { Provider, useSelector } from 'react-redux';
 import { light, dark, GlobalStyles } from './Theme/theme';
 import ShopRouter from './Containers/Router/Router';
 import store from './redux/store';
-import getCurrentTheme from './redux/theme/selectors';
+import getCurrentTheme from './redux/common/theme/selectors';
 
 export default function App() {
   return (

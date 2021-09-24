@@ -7,6 +7,7 @@ const Form = ({
   handleSubmit,
   children,
 }) => <StyledForm onSubmit={handleSubmit}>{children}</StyledForm>;
+
 export default Form;
 
 Form.propTypes = {
