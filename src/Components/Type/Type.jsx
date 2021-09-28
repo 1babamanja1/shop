@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-const Type = (pokeType, pokeName) => {
+const Type = ({ pokeType }) => {
   if (pokeType) {
-    return <PokeType props={pokeType} key={`${pokeName}_${pokeType}`}>{pokeType}</PokeType>;
+    return <PokeType type={pokeType}>{pokeType}</PokeType>;
   }
-  return <PokeType props="unknown" />;
+  return <PokeType type="unknown" />;
 };
 
 const setColor = (type) => {
-  switch (type.props) {
+  switch (type) {
     case 'Bug':
       return '#1CFF14';
     case 'Dark':
@@ -50,14 +51,20 @@ const setColor = (type) => {
       return '#000';
   }
 };
+Type.defaultProps = {
+  pokeType: '',
+};
+
+Type.propTypes = {
+  pokeType: PropTypes.string,
+};
 
 const PokeType = styled.div`
-  width: 100px;
-  margin: 5px auto;
+  min-width: 70px;
+  margin: 5px;
   padding: 2px;
   text-align: center;
-  color: ${(props) => setColor(props)};
-  border: 2px solid ${(props) => setColor(props)};
+  border: 3px solid ${(props) => setColor(props.type)};
   border-radius: 5px;
 `;
 

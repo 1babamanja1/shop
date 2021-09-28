@@ -9,13 +9,13 @@ import Header from '../../Components/Header';
 import Homepage from '../Homepage/Homepage';
 import Login from '../Login/Login';
 import Registration from '../Registration/Registration';
-import PokePage from '../PokePage';
+import BigSaleCard from '../BigSaleCard';
 import ProtectedRoute from './ProtectedRoute';
 import Cart from '../Cart';
 
 import getAuthorized from '../../redux/user/selectors';
-import { getLoadingStatus } from '../../redux/common/dataLoading/selectors';
-import { getPokeList } from '../../redux/common/dataLoading/actions';
+import { getPokeList } from '../../redux/pokemons/actions';
+import { getLoadingStatus } from '../../redux/common/selectors';
 
 const ShopRouter = () => {
   const isAuthorized = useSelector(getAuthorized);
@@ -45,7 +45,7 @@ const ShopRouter = () => {
               />
               <Route exact path="/registration" component={Registration} />
               <Route exact path="/login" component={Login} />
-              <ProtectedRoute exact path="/pokemons/:pokeName" component={PokePage} isAuth={isAuthorized} />
+              <ProtectedRoute exact path="/pokemons/:pokeName" component={BigSaleCard} isAuth={isAuthorized} />
               <ProtectedRoute exact path="/cart" component={Cart} isAuth={isAuthorized} />
             </Container>
           )}

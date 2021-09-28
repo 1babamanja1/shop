@@ -4,14 +4,16 @@ import {
 import getPokemon from '../services/api/pokemons';
 
 import {
-  failLoading,
-  getPokeList, startLoading, succeedLoading, updatePokeList,
-} from './common/dataLoading/actions';
+  getPokeList, updatePokeList, getFullInfo, updateFullInfo,
+} from './pokemons/actions';
 import { saveToLocalStorage, saveToSessionStorage } from '../services/localStorage';
 import { setAuthorized, setUnauthorized } from './user/actions';
-import { addToCart, clearCart, removeFromCart } from './cart/actions';
+import {
+  addToCart, clearCart, removeAllFromCart, removeOneFromCart,
+} from './cart/actions';
 import { getCart, getCartCounter } from './cart/selectors';
 import getAuthorized from './user/selectors';
+import { failLoading, startLoading, succeedLoading } from './common/actions';
 
 const delay = (del) => new Promise((resolve) => setTimeout(() => resolve(true), del));
 
@@ -25,6 +27,12 @@ export function* getPokemons() {
   } catch (e) {
     yield put(failLoading());
   }
+}
+export function* getFull(data) {
+  yield call(delay, 1000);
+  const payload = yield call(getPokemon);
+  const res = payload.find((item) => item.name === data.payload);
+  yield put(updateFullInfo(res));
 }
 
 export function* setAuthToLocalStorage() {
@@ -40,10 +48,13 @@ export function* saveCartToSessionStorage() {
 
 export function* sagaWatcher() {
   yield takeEvery(getPokeList().type, getPokemons);
+  yield takeEvery(getFullInfo().type, getFull);
+
   yield takeEvery(setAuthorized().type, setAuthToLocalStorage);
   yield takeEvery(setUnauthorized().type, setAuthToLocalStorage);
 
   yield takeEvery(addToCart().type, saveCartToSessionStorage);
-  yield takeEvery(removeFromCart().type, saveCartToSessionStorage);
+  yield takeEvery(removeOneFromCart().type, saveCartToSessionStorage);
+  yield takeEvery(removeAllFromCart().type, saveCartToSessionStorage);
   yield takeEvery(clearCart().type, saveCartToSessionStorage);
 }

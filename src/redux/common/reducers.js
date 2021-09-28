@@ -1,14 +1,20 @@
+import { getFromLocalStorage, saveToLocalStorage } from '../../services/localStorage';
+
 const defaultState = {
+  theme: getFromLocalStorage('theme'),
   inLoading: false,
   successLoad: false,
-  pokeList: [],
 };
 
-function commonReducer(state = defaultState, action) {
+export default function commonReducer(state = defaultState, action) {
   switch (action.type) {
-    case 'UPDATE_POKELIST': {
-      return { ...state, pokeList: action.payload };
+    case 'CHANGE_THEME': {
+      let newTheme = state.theme;
+      newTheme = (newTheme === 'light' ? 'dark' : 'light');
+      saveToLocalStorage('theme', newTheme);
+      return { ...state, theme: newTheme };
     }
+
     case 'START_LOADING': {
       return { ...state, inLoading: true };
     }
@@ -21,5 +27,3 @@ function commonReducer(state = defaultState, action) {
     default: return state;
   }
 }
-
-export default commonReducer;

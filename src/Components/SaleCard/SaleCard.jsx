@@ -6,56 +6,61 @@ import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { Colors } from '../../Theme/theme';
 
 import Type from '../Type';
-import { Colors } from '../../Theme/theme';
 import { addToCart } from '../../redux/cart/actions';
 
-const SaleCard = ({ name, pic, type }) => {
+const SaleCard = ({ data }) => {
   const dispatch = useDispatch();
-  const clickHandler = () => dispatch(addToCart({ name }));
+  const clickHandler = () => dispatch(addToCart(data));
 
   return (
     <StyledSaleCard>
-      <div>
+      <div key={`saleCard_${data.name}`}>
         <Header>
-          <Link to={`/pokemons/${name}`}><h3>{name}</h3></Link>
+          <Link to={`/pokemons/${data.name}`}><h3>{data.name}</h3></Link>
           <h3>
             <FontAwesomeIcon icon={faCartPlus} onClick={clickHandler} />
           </h3>
         </Header>
-        <Link to={`/pokemons/${name}`}>
-          <Pic img={pic} />
+        <Link to={`/pokemons/${data.name}`}>
+          <Pic img={data.pic} />
         </Link>
       </div>
       <div>
         <h4>Type:</h4>
-        {type.map((item) => Type(item, name))}
+        {data.type.map((item) => <Type pokeType={item} pokeName={data.name} key={`${item}_${data.name}`} />)}
       </div>
     </StyledSaleCard>
   );
 };
 
 SaleCard.defaultProps = {
-  name: '',
-  pic: '',
-  type: [],
-  details: {
-    height: 0,
-    weight: 0,
-    category: '',
+  data: {
+    name: '',
+    pic: '',
+    type: [],
+    details: {
+      height: 0,
+      weight: 0,
+      category: '',
+    },
   },
 };
 
 SaleCard.propTypes = {
-  name: PropTypes.string,
-  pic: PropTypes.string,
-  type: PropTypes.arrayOf(PropTypes.string),
-  details: PropTypes.shape({
-    height: PropTypes.number,
-    weight: PropTypes.number,
-    category: PropTypes.string,
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    pic: PropTypes.string,
+    type: PropTypes.arrayOf(PropTypes.string),
+    details: PropTypes.shape({
+      height: PropTypes.number,
+      weight: PropTypes.number,
+      category: PropTypes.string,
+    }),
   }),
+
 };
 
 export default SaleCard;

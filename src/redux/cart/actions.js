@@ -3,8 +3,13 @@ export const addToCart = (payload) => ({
   payload,
 });
 
-export const removeFromCart = (payload) => ({
-  type: 'REMOVE_FROM_CART',
+export const removeOneFromCart = (payload) => ({
+  type: 'REMOVE_ONE_FROM_CART',
+  payload,
+});
+
+export const removeAllFromCart = (payload) => ({
+  type: 'REMOVE_ALL_FROM_CART',
   payload,
 });
 

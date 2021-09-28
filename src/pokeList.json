@@ -6,7 +6,12 @@
   "details": {
     "height": 2.04,
     "weight": 15.2,
-    "category": "seed"
+    "category": "seed",
+    "weakness": [
+      "Fire", "Physic",
+      "Flying",
+      "Ice"
+    ]
   }
 },
   {
@@ -17,20 +22,20 @@
     "details": {
       "height": 2.00,
       "weight": 18.7,
-      "category": "lizard"
+      "category": "lizard",
+      "weakness": ["Water", "Ground", "Rock"]
     }
   },
   {
     "id": "007",
     "name": "Squirtle",
     "pic": "/imgs/007_squirtle.png",
-    "type": [
-      "Water"
-    ],
+    "type": ["Water"],
     "details": {
       "height": 1.08,
       "weight": 19.8,
-      "category": "Tiny Turtle"
+      "category": "Tiny Turtle",
+      "weakness": ["Grass","Electric"]
     }
   },
   {
@@ -41,7 +46,8 @@
     "details": {
       "height": 2.04,
       "weight": 21.8,
-      "category": "Cocoon"
+      "category": "Cocoon",
+      "weakness": ["Fire", "Flying", "Rock"]
     }
   }
 ]

@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 import getAuthorized from '../../redux/user/selectors';
-import getCurrentTheme from '../../redux/common/theme/selectors';
+import { getCurrentTheme } from '../../redux/common/selectors';
 import { getCartCounter } from '../../redux/cart/selectors';
-import changeTheme from '../../redux/common/theme/actions';
+import { changeTheme } from '../../redux/common/actions';
 import { setUnauthorized } from '../../redux/user/actions';
 
 import { Colors } from '../../Theme/theme';
@@ -70,7 +70,10 @@ const StyledNav = styled.div`
   width: 70%;
   display: flex;
   justify-content: ${(props) => props.props};
-  & *{
+  & > *{
     margin: 0 15px;
+  }
+  & *{
+    margin-right: 5px;
   }
 `;
