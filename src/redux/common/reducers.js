@@ -1,27 +1,27 @@
-import { getFromLocalStorage, saveToLocalStorage } from '../../services/localStorage';
+import { getFromLocalStorage } from '../../services/localStorage';
+import commonType from './consts';
 
 const defaultState = {
   theme: getFromLocalStorage('theme'),
-  inLoading: false,
+  inLoading: true,
   successLoad: false,
 };
 
 export default function commonReducer(state = defaultState, action) {
   switch (action.type) {
-    case 'CHANGE_THEME': {
+    case commonType.changeTheme: {
       let newTheme = state.theme;
       newTheme = (newTheme === 'light' ? 'dark' : 'light');
-      saveToLocalStorage('theme', newTheme);
       return { ...state, theme: newTheme };
     }
 
-    case 'START_LOADING': {
+    case commonType.startLoading: {
       return { ...state, inLoading: true };
     }
-    case 'SUCCEED_LOADING': {
+    case commonType.succeedLoading: {
       return { ...state, inLoading: false, successLoad: true };
     }
-    case 'FAIL_LOADING': {
+    case commonType.failLoading: {
       return { ...state, inLoading: false, successLoad: false };
     }
     default: return state;

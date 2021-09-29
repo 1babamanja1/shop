@@ -1,20 +1,35 @@
-export const getPokeList = () => ({ type: 'GET_POKELIST' });
+import pokeType from './consts';
+
+export const getPokeList = () => ({
+  type: pokeType.getPokelist,
+});
+
 export const updatePokeList = (payload) => ({
-  type: 'UPDATE_POKELIST',
+  type: pokeType.updatePokelist,
   payload,
 });
 
 export const getFullInfo = (payload) => ({
-  type: 'GET_FULL_POKE_INFO',
+  type: pokeType.getFullPokeInfo,
   payload,
 });
 
 export const updateFullInfo = (payload) => ({
-  type: 'UPDATE_FULL_POKE_INFO',
+  type: pokeType.updateFullPokeInfo,
   payload,
 });
 
 export const clearFullInfo = (payload) => ({
-  type: 'CLEAR_FULL_INFO',
+  type: pokeType.clearFullInfo,
   payload,
+});
+
+export const startPokeLoading = () => ({
+  type: pokeType.startPokeLoading,
+});
+export const succeedPokeLoading = () => ({
+  type: pokeType.succeedPokeLoading,
+});
+export const failPokeLoading = () => ({
+  type: pokeType.failPokeLoading,
 });

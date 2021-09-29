@@ -15,14 +15,29 @@ export const GlobalStyles = createGlobalStyle`
     color: ${(props) => props.theme.color}
   };`;
 
-export const Colors = (type) => {
-  switch (type) {
-    case 'orange': {
-      return '#FF9000';
-    }
-    case 'light-text': {
-      return '#F1F1EC';
-    }
-    default: return '#000';
-  }
+export const colors = {
+  orange: '#FF9000',
+  lightText: '#F1F1EC',
+};
+
+export const typeColor = {
+  Bug: '#1CFF14',
+  Dark: '#006262',
+  Dragon: '#EB4C42',
+  Electric: '#F4CA16',
+  Fairy: '#F4A6D1',
+  Fighting: '#9457EB',
+  Fire: '#FF5107',
+  Flying: '#C2FFFA',
+  Ghost: '#DDDDE1',
+  Grass: '#0F7E00',
+  Ground: '#7E4B2A',
+  Ice: '#19E7E7',
+  Normal: '#838996',
+  Psychic: '#BFDE68',
+  Poison: '#00DE94',
+  Steel: '#BBBBBB',
+  Rock: '#8F8F8F',
+  Water: '#0800EE',
+  Unknown: '#000',
 };

@@ -1,26 +1,24 @@
 import {
   takeEvery, call, put, select,
 } from 'redux-saga/effects';
-import getPokemon from '../services/api/pokemons';
+import { getPokemon, getFullPokeData } from '../services/api/pokemons';
 
 import {
-  getPokeList, updatePokeList, getFullInfo, updateFullInfo,
+  updatePokeList, updateFullInfo, startPokeLoading, failPokeLoading, succeedPokeLoading,
 } from './pokemons/actions';
 import { saveToLocalStorage, saveToSessionStorage } from '../services/localStorage';
 import { setAuthorized, setUnauthorized } from './user/actions';
-import {
-  addToCart, clearCart, removeAllFromCart, removeOneFromCart,
-} from './cart/actions';
 import { getCart, getCartCounter } from './cart/selectors';
 import getAuthorized from './user/selectors';
 import { failLoading, startLoading, succeedLoading } from './common/actions';
-
-const delay = (del) => new Promise((resolve) => setTimeout(() => resolve(true), del));
+import pokeType from './pokemons/consts';
+import cartType from './cart/consts';
+import commonType from './common/consts';
+import { getCurrentTheme } from './common/selectors';
 
 export function* getPokemons() {
   yield put(startLoading());
   try {
-    yield call(delay, 1000);
     const payload = yield call(getPokemon);
     yield put(updatePokeList(payload));
     yield put(succeedLoading());
@@ -29,10 +27,14 @@ export function* getPokemons() {
   }
 }
 export function* getFull(data) {
-  yield call(delay, 1000);
-  const payload = yield call(getPokemon);
-  const res = payload.find((item) => item.name === data.payload);
-  yield put(updateFullInfo(res));
+  yield put(startPokeLoading());
+  try {
+    const payload = yield call(getFullPokeData, data.payload);
+    yield put(updateFullInfo(payload));
+    yield put(succeedPokeLoading());
+  } catch (e) {
+    yield put(failPokeLoading());
+  }
 }
 
 export function* setAuthToLocalStorage() {
@@ -46,15 +48,22 @@ export function* saveCartToSessionStorage() {
   yield saveToSessionStorage('cartCounter', cartCounter);
 }
 
+export function* saveThemeToLocalStorage() {
+  const theme = yield select(getCurrentTheme);
+  yield saveToLocalStorage('theme', theme);
+}
+
 export function* sagaWatcher() {
-  yield takeEvery(getPokeList().type, getPokemons);
-  yield takeEvery(getFullInfo().type, getFull);
+  yield takeEvery(pokeType.getPokelist, getPokemons);
+  yield takeEvery(pokeType.getFullPokeInfo, getFull);
 
   yield takeEvery(setAuthorized().type, setAuthToLocalStorage);
   yield takeEvery(setUnauthorized().type, setAuthToLocalStorage);
 
-  yield takeEvery(addToCart().type, saveCartToSessionStorage);
-  yield takeEvery(removeOneFromCart().type, saveCartToSessionStorage);
-  yield takeEvery(removeAllFromCart().type, saveCartToSessionStorage);
-  yield takeEvery(clearCart().type, saveCartToSessionStorage);
+  yield takeEvery(cartType.addToCart, saveCartToSessionStorage);
+  yield takeEvery(cartType.removeOneFromCart, saveCartToSessionStorage);
+  yield takeEvery(cartType.removeAllFromCart, saveCartToSessionStorage);
+  yield takeEvery(cartType.clearCart, saveCartToSessionStorage);
+
+  yield takeEvery(commonType.changeTheme, saveThemeToLocalStorage);
 }

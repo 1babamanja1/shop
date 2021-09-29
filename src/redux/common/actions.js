@@ -1,13 +1,14 @@
-export const changeTheme = () => ({
-  type: 'CHANGE_THEME',
-});
+import commonType from './consts';
 
+export const changeTheme = () => ({
+  type: commonType.changeTheme,
+});
 export const startLoading = () => ({
-  type: 'START_LOADING',
+  type: commonType.startLoading,
 });
 export const succeedLoading = () => ({
-  type: 'SUCCEED_LOADING',
+  type: commonType.succeedLoading,
 });
 export const failLoading = () => ({
-  type: 'FAIL_LOADING',
+  type: commonType.failLoading,
 });

@@ -13,7 +13,7 @@ import { getCartCounter } from '../../redux/cart/selectors';
 import { changeTheme } from '../../redux/common/actions';
 import { setUnauthorized } from '../../redux/user/actions';
 
-import { Colors } from '../../Theme/theme';
+import { colors } from '../../Theme/theme';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -55,13 +55,13 @@ export default Header;
 const StyledHeader = styled.header`
   height: 60px;
   padding: 0 10px;
-  background-color: ${Colors('orange')};
+  background-color: ${colors.orange};
   display: flex;
   align-items: center;
   justify-content: space-between;
   
   & * {
-    color: ${Colors('light-text')};;
+    color: ${colors.lightText};;
     text-decoration: none;
    
   }

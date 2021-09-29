@@ -1,4 +1,5 @@
 import { getFromSessionStorage } from '../../services/localStorage';
+import cartType from './consts';
 
 const defaultState = {
   cart: getFromSessionStorage('cart') || [],
@@ -7,9 +8,9 @@ const defaultState = {
 
 function cartReducer(state = defaultState, action) {
   switch (action.type) {
-    case 'ADD_TO_CART': {
+    case cartType.addToCart: {
       const data = action.payload;
-      const newCart = state.cart;
+      const newCart = [...state.cart];
       const index = newCart.findIndex((item) => item.data.name === data.name);
 
       if (index === -1) {
@@ -23,8 +24,8 @@ function cartReducer(state = defaultState, action) {
       };
     }
 
-    case 'REMOVE_ONE_FROM_CART': {
-      const newCart = state.cart;
+    case cartType.removeOneFromCart: {
+      const newCart = [...state.cart];
       const index = newCart.findIndex((item) => item.data.name === action.payload);
 
       if (newCart[index].count === 1) {
@@ -38,7 +39,7 @@ function cartReducer(state = defaultState, action) {
         cartCounter: state.cartCounter - 1,
       };
     }
-    case 'REMOVE_ALL_FROM_CART': {
+    case cartType.removeAllFromCart: {
       const countRes = state.cart.find((item) => item.data.name === action.payload).count;
       return {
         ...state,
@@ -46,12 +47,8 @@ function cartReducer(state = defaultState, action) {
         cartCounter: state.cartCounter - countRes,
       };
     }
-    case 'CLEAR_CART': {
-      return {
-        ...state,
-        cart: [],
-        cartCounter: 0,
-      };
+    case cartType.clearCart: {
+      return defaultState;
     }
     default:
       return state;

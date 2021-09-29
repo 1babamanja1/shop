@@ -6,7 +6,8 @@
   "details": {
     "height": 2.04,
     "weight": 15.2,
-    "category": "seed",
+    "birthday": "14/02/2018",
+    "category": "Seed",
     "weakness": [
       "Fire", "Physic",
       "Flying",
@@ -22,7 +23,8 @@
     "details": {
       "height": 2.00,
       "weight": 18.7,
-      "category": "lizard",
+      "birthday": "09/03/2014",
+      "category": "Lizard",
       "weakness": ["Water", "Ground", "Rock"]
     }
   },
@@ -34,6 +36,7 @@
     "details": {
       "height": 1.08,
       "weight": 19.8,
+      "birthday": "12/03/2017",
       "category": "Tiny Turtle",
       "weakness": ["Grass","Electric"]
     }
@@ -46,6 +49,7 @@
     "details": {
       "height": 2.04,
       "weight": 21.8,
+      "birthday": "08/06/2016",
       "category": "Cocoon",
       "weakness": ["Fire", "Flying", "Rock"]
     }

@@ -16,6 +16,7 @@ import Cart from '../Cart';
 import getAuthorized from '../../redux/user/selectors';
 import { getPokeList } from '../../redux/pokemons/actions';
 import { getLoadingStatus } from '../../redux/common/selectors';
+import Preloader from '../../Components/Preloader';
 
 const ShopRouter = () => {
   const isAuthorized = useSelector(getAuthorized);
@@ -33,7 +34,7 @@ const ShopRouter = () => {
       <Header />
       <Body>
         {isLoading
-          ? <div>Preloader</div>
+          ? <Preloader />
           : (
             <Container>
               <Route exact path="/"><Redirect to="/home" /></Route>

@@ -14,7 +14,7 @@ const Homepage = () => {
     <Grid container spacing={1}>
       {pokeList.map((pokemon) => (
         <Grid item xl={3} lg={3} md={4} sm={6} xs={12} key={`grid_${pokemon.id}`}>
-          <SaleCard data={pokemon} />
+          <SaleCard data={pokemon} key={`saleCard_${pokemon.name}`} />
         </Grid>
       ))}
     </Grid>

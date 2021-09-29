@@ -1,18 +1,20 @@
+import cartType from './consts';
+
 export const addToCart = (payload) => ({
-  type: 'ADD_TO_CART',
+  type: cartType.addToCart,
   payload,
 });
 
 export const removeOneFromCart = (payload) => ({
-  type: 'REMOVE_ONE_FROM_CART',
+  type: cartType.removeOneFromCart,
   payload,
 });
 
 export const removeAllFromCart = (payload) => ({
-  type: 'REMOVE_ALL_FROM_CART',
+  type: cartType.removeAllFromCart,
   payload,
 });
 
 export const clearCart = () => ({
-  type: 'CLEAR_CART',
+  type: cartType.clearCart,
 });

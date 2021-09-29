@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { Colors } from '../../Theme/theme';
+import { colors } from '../../Theme/theme';
 
 import Type from '../Type';
 import { addToCart } from '../../redux/cart/actions';
@@ -17,7 +17,7 @@ const SaleCard = ({ data }) => {
 
   return (
     <StyledSaleCard>
-      <div key={`saleCard_${data.name}`}>
+      <div>
         <Header>
           <Link to={`/pokemons/${data.name}`}><h3>{data.name}</h3></Link>
           <h3>
@@ -103,7 +103,7 @@ const Header = styled.div`
   & *{
     cursor: pointer;
     &:hover{
-      color: ${Colors('orange')};
+      color: ${colors.orange};
       transition: 0.3s;
     }
   }

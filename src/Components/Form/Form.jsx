@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Colors } from '../../Theme/theme';
+import { colors } from '../../Theme/theme';
 
 const Form = ({
   handleSubmit,
@@ -29,7 +29,7 @@ const StyledForm = styled.form`
   justify-content: center;
   align-items: center;
   
-  color: ${Colors('light-text')};
+  color: ${colors.orange};
   border-radius: 5px;
   border: 2px solid ${(props) => props.theme.color};
   

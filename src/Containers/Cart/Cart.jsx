@@ -7,7 +7,7 @@ import { getCart, getCartCounter } from '../../redux/cart/selectors';
 import { clearCart, removeAllFromCart, removeOneFromCart } from '../../redux/cart/actions';
 
 import Button from '../../Components/Button';
-import { Colors } from '../../Theme/theme';
+import { colors } from '../../Theme/theme';
 
 const Cart = () => {
   const cart = useSelector(getCart);
@@ -84,7 +84,7 @@ const Item = styled.div`
   width: 50%;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 2px solid ${Colors('orange')};
+  border-bottom: 2px solid ${colors.orange};
   & *{
     flex-direction: column;
     margin: 2px;
