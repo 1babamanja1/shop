@@ -3,10 +3,10 @@ import {
 } from 'redux';
 import createSagaMiddleWare from 'redux-saga';
 import userReducer from './user/reducers';
-import themeReducer from './theme/reducers';
-import pokeReducer from './pokemons/reducers';
+import commonReducer from './common/reducers';
 import { sagaWatcher } from './sagas';
 import cartReducer from './cart/reducers';
+import pokeReducer from './pokemons/reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -15,9 +15,9 @@ const saga = createSagaMiddleWare();
 const store = createStore(
   combineReducers({
     userReducer,
-    themeReducer,
-    pokeReducer,
+    commonReducer,
     cartReducer,
+    pokeReducer,
   }),
   composeEnhancers(applyMiddleware(saga)),
 );

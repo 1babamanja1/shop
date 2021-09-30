@@ -1,67 +1,69 @@
 import React from 'react';
-import styled from 'styled-components';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import DarkModeToggle from 'react-dark-mode-toggle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import changeTheme from '../../redux/theme/actions';
+
 import getAuthorized from '../../redux/user/selectors';
-import { setUnauthorized } from '../../redux/user/actions';
-import getCurrentTheme from '../../redux/theme/selectors';
-import { Colors } from '../../Theme/theme';
+import { getCurrentTheme } from '../../redux/common/selectors';
 import { getCartCounter } from '../../redux/cart/selectors';
+import { changeTheme } from '../../redux/common/actions';
+import { setUnauthorized } from '../../redux/user/actions';
+
+import { colors } from '../../Theme/theme';
+import { clearFilters } from '../../redux/pokemons/actions';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const isAuth = useSelector(getAuthorized);
   const mode = useSelector(getCurrentTheme);
-  const body = isAuth ? <MainNav /> : <LoginNav />;
+  const isAuth = useSelector(getAuthorized);
+  const cartCounter = useSelector(getCartCounter);
+
+  const logOut = () => dispatch(setUnauthorized());
+  const toggleTheme = () => dispatch(changeTheme());
+  const clrFilters = () => dispatch(clearFilters());
 
   return (
     <StyledHeader>
-      <Link to="/home"><h2>PokeDelivery</h2></Link>
-      {body}
-      <DarkModeToggle onChange={() => dispatch(changeTheme())} checked={mode === 'dark'} size={60} />
+      <Link to="/home" onClick={clrFilters}><h2>PokeDelivery</h2></Link>
+      {isAuth
+        ? (
+          <StyledNav props="flex-end">
+            <Link to="/home" onClick={clrFilters}>Home</Link>
+            <Link to="/cart">
+              <FontAwesomeIcon icon={faShoppingCart} />
+              {cartCounter}
+            </Link>
+            <Link to="/login" onClick={logOut}>Logout</Link>
+
+          </StyledNav>
+        )
+        : (
+          <StyledNav props="flex-end">
+            <Link to="/registration">Register</Link>
+            <Link to="/login">Login</Link>
+          </StyledNav>
+        )}
+      <DarkModeToggle onChange={toggleTheme} checked={mode === 'dark'} size={60} />
     </StyledHeader>
   );
 };
 
 export default Header;
 
-const MainNav = () => {
-  const dispatch = useDispatch();
-  const cartCounter = useSelector(getCartCounter);
-  return (
-    <StyledNav props="flex-end">
-      <Link to="/home">Home</Link>
-      <Link to="/cart">
-        <FontAwesomeIcon icon={faShoppingCart} />
-        {cartCounter}
-      </Link>
-      <Link to="/login" onClick={() => dispatch(setUnauthorized())}>Logout</Link>
-
-    </StyledNav>
-  );
-};
-
-const LoginNav = () => (
-  <StyledNav props="flex-end">
-    <Link to="/registration">Register</Link>
-    <Link to="/login">Login</Link>
-  </StyledNav>
-);
-
 const StyledHeader = styled.header`
   height: 60px;
   padding: 0 10px;
-  background-color: ${Colors('orange')};
+  background-color: ${colors.orange};
   display: flex;
   align-items: center;
   justify-content: space-between;
   
   & * {
-    color: ${Colors('light-text')};;
+    color: ${colors.lightText};;
     text-decoration: none;
    
   }
@@ -70,7 +72,10 @@ const StyledNav = styled.div`
   width: 70%;
   display: flex;
   justify-content: ${(props) => props.props};
-  & *{
+  & > *{
     margin: 0 15px;
+  }
+  & *{
+    margin-right: 5px;
   }
 `;

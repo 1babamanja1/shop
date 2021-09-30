@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+
 import validate from '../../Components/Form/validationRules';
-import { register } from '../../services/api/user';
 import Form from '../../Components/Form';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
+
+import { register } from '../../services/api/user';
 
 const Registration = () => {
   const history = useHistory();
