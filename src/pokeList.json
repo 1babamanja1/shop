@@ -53,5 +53,31 @@
       "category": "Cocoon",
       "weakness": ["Fire", "Flying", "Rock"]
     }
+  },
+  {
+    "id":"015",
+    "name": "Beedrill",
+    "pic": "/imgs/015_beedrill.png",
+    "type": ["Bug", "Poison"],
+    "details": {
+      "height": 3.03,
+      "weight": 65.0,
+      "birthday": "11/11/2011",
+      "category": "Poison Bee",
+      "weakness": ["Fire", "Flying", "Rock", "Physic"]
+    }
+  },
+  {
+    "id":"023",
+    "name": "Ekans",
+    "pic": "/imgs/023_ekans.png",
+    "type": ["Poison"],
+    "details": {
+      "height": 6.07,
+      "weight": 15.2,
+      "birthday": "08/06/2017",
+      "category": "Snake",
+      "weakness": ["Physic", "Ground"]
+    }
   }
 ]

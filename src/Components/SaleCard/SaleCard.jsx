@@ -30,7 +30,13 @@ const SaleCard = ({ data }) => {
       </div>
       <div>
         <h4>Type:</h4>
-        {data.type.map((item) => <Type pokeType={item} pokeName={data.name} key={`${item}_${data.name}`} />)}
+        {data.type.map((item) => (
+          <Type
+            pokeType={item}
+            pokeName={data.name}
+            key={`${item}_${data.name}`}
+          />
+        ))}
       </div>
     </StyledSaleCard>
   );

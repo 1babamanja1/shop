@@ -33,22 +33,24 @@ const Cart = () => {
             <Item key={`cart_${item.data.name}`}>
               <div>
                 <Link to={`/pokemons/${item.data.name}`}><Pic img={item.data.pic} /></Link>
-                <h3>
-                  Amount:
-                  {item.count}
-                </h3>
               </div>
               <Body>
-                <Link to={`/pokemons/${item.data.name}`}><Name>{item.data.name}</Name></Link>
+                <Link to={`/pokemons/${item.data.name}`}>
+                  <Name>
+                    {item.data.name}
+                    {' '}
+                    x
+                    {item.count}
+                  </Name>
+                </Link>
                 <div>
                   <Button type="button" buttonName="Remove one" onClick={() => removeOne(item.data.name)} />
                   <Button type="button" buttonName="Remove All" onClick={() => removeAll(item.data.name)} />
                 </div>
-
               </Body>
             </Item>
-
           ))}
+          <Button type="button" onClick={console.log('Hi')} buttonName="Checkout" />
         </StyledCart>
       </Container>
     )

@@ -24,6 +24,15 @@ export const clearFullInfo = (payload) => ({
   payload,
 });
 
+export const filterType = (payload) => ({
+  type: pokeType.filterType,
+  payload,
+});
+
+export const clearFilters = () => ({
+  type: pokeType.clearFilters,
+});
+
 export const startPokeLoading = () => ({
   type: pokeType.startPokeLoading,
 });

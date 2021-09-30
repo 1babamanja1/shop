@@ -33,7 +33,7 @@ const ShopRouter = () => {
     <Router>
       <Header />
       <Body>
-        {isLoading
+        {isLoading && isAuthorized
           ? <Preloader />
           : (
             <Container>

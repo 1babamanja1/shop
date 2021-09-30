@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import { Grid } from '@mui/material';
 
 import SaleCard from '../../Components/SaleCard';
-import { getPokes } from '../../redux/pokemons/selectors';
+import { getShowList } from '../../redux/pokemons/selectors';
 
 const Homepage = () => {
-  const pokeList = useSelector(getPokes);
+  const pokeList = useSelector(getShowList);
   if (!pokeList) {
     return null;
   }
