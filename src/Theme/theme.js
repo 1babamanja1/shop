@@ -3,10 +3,12 @@ import { createGlobalStyle } from 'styled-components';
 export const light = {
   backgroundColor: '#F6F6F6',
   color: '#272B33',
+  bigCardColor: '#fff',
 };
 export const dark = {
   backgroundColor: '#272B33',
   color: '#F6F6F6',
+  bigCardColor: '#333844',
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -18,6 +20,8 @@ export const GlobalStyles = createGlobalStyle`
 export const colors = {
   orange: '#FF9000',
   lightText: '#F1F1EC',
+  grey: '#DEDEDE',
+  darkGrey: '#282C34',
 };
 
 export const typeColor = {

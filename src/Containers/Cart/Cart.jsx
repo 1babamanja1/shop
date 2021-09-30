@@ -50,7 +50,6 @@ const Cart = () => {
               </Body>
             </Item>
           ))}
-          <Button type="button" onClick={console.log('Hi')} buttonName="Checkout" />
         </StyledCart>
       </Container>
     )
