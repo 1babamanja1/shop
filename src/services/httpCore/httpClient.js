@@ -1,5 +1,4 @@
 import axios from 'axios';
-import newHttpError from './httpError';
 import requestHandler from './requestHandler';
 
 class HttpClient {
@@ -14,13 +13,10 @@ class HttpClient {
 
   createFetch({ url, ...reqSettings }) {
     return async () => {
-      try {
-        // const response = await this.axiosInstance(url, reqSettings);
-        // test requestHandler need to change
-        return await requestHandler(url, { reqSettings, ...this.config });
-      } catch (error) {
-        throw newHttpError(error);
-      }
+      const result = await this.axiosInstance({ url, ...reqSettings });
+      return result;
+      // const auth = await requestHandler(url, { reqSettings, ...this.config });
+      // test requestHandler need to change
     };
   }
 }

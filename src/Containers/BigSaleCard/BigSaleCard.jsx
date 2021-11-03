@@ -19,15 +19,20 @@ import Preloader from '../../Components/Preloader';
 
 const BigSaleCard = () => {
   const dispatch = useDispatch();
-  const { pokeName } = useParams();
+  const { id } = useParams();
 
-  useEffect(() => {
-    dispatch(getFullInfo(pokeName));
-  }, [dispatch, pokeName]);
+  useEffect(
+    () => {
+      dispatch(getFullInfo(id));
+    },
+    [dispatch, id],
+  );
 
   const isPokeLoading = useSelector(getPokeLoadStatus);
-  const pokeData = useSelector(getFullInfoSelector);
-  const clickHandler = () => { dispatch(addToCart(pokeData)); };
+  const pokeData = useSelector(getFullInfoSelector)[0];
+  const clickHandler = () => {
+    dispatch(addToCart(pokeData));
+  };
 
   if (isPokeLoading) {
     return <Preloader />;
@@ -37,7 +42,8 @@ const BigSaleCard = () => {
   const age = moment().diff(birthdate, 'years');
 
   const createData = (name, value) => ({
-    name, value,
+    name,
+    value,
   });
   const row = [
     createData('Weight:', pokeData.details.weight),
@@ -67,21 +73,13 @@ const BigSaleCard = () => {
         <Info>
           <h4>Type: </h4>
           {pokeData.type.map((item) => (
-            <Type
-              pokeType={item}
-              pokeName={pokeData.name}
-              key={`${item}_${pokeData.name}`}
-            />
+            <Type pokeType={item} pokeName={pokeData.name} key={`${item}_${pokeData.name}`} />
           ))}
         </Info>
         <Info>
           <h4>Weakness: </h4>
           {pokeData.details.weakness.map((item) => (
-            <Type
-              pokeType={item}
-              pokeName={pokeData.name}
-              key={`${item}_${pokeData.name}`}
-            />
+            <Type pokeType={item} pokeName={pokeData.name} key={`${item}_${pokeData.name}`} />
           ))}
         </Info>
 
@@ -111,14 +109,14 @@ const Header = styled.h2`
   text-decoration: none;
 `;
 const Pic = styled.div`
-  width:  250px;
+  width: 250px;
   height: 250px;
   background-image: url(${(props) => props.img});
   background-position: center;
   background-size: contain;
 `;
 const Body = styled.div`
-  width:  66%;
+  width: 66%;
 `;
 
 const Info = styled.div`
@@ -134,8 +132,8 @@ const Info = styled.div`
 `;
 
 const StyledTableRow = styled(TableRow)`
-    :nth-child(2n){
-      background-color: ${colors.grey};
-      color: ${colors.darkGrey}
+  :nth-child(2n) {
+    background-color: ${colors.grey};
+    color: ${colors.darkGrey};
   }
 `;

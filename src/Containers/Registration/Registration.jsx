@@ -27,7 +27,9 @@ const Registration = () => {
       try {
         const response = await register(regData);
         setErrors({});
-        if (response.success) { history.push('/login'); }
+        if (response.status === 200) {
+          history.push('/login');
+        }
       } catch (e) {
         event.preventDefault();
         setErrors({ server: 'Something went wrong, please try again later' });
@@ -47,8 +49,19 @@ const Registration = () => {
       <Form handleSubmit={handleSubmit}>
         <Pic />
         <Header>Registration</Header>
-        <Input name="username" placeholder="Name" error={errors.username} onChangeHandler={onChangeHandler} />
-        <Input name="email" placeholder="Email" type="email" error={errors.email} onChangeHandler={onChangeHandler} />
+        <Input
+          name="username"
+          placeholder="Name"
+          error={errors.username}
+          onChangeHandler={onChangeHandler}
+        />
+        <Input
+          name="email"
+          placeholder="Email"
+          type="email"
+          error={errors.email}
+          onChangeHandler={onChangeHandler}
+        />
         <Input
           name="password"
           placeholder="Password"
@@ -76,8 +89,8 @@ const Pic = styled.div`
   background-image: url('/imgs/register_abra.png');
   background-position: center;
   background-size: cover;
-  `;
+`;
 
 const Header = styled.h2`
-  color: ${(props) => props.theme.color}
+  color: ${(props) => props.theme.color};
 `;

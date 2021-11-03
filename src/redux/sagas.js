@@ -4,7 +4,11 @@ import {
 import { getPokemon, getFullPokeData } from '../services/api/pokemons';
 
 import {
-  updatePokeList, updateFullInfo, startPokeLoading, failPokeLoading, succeedPokeLoading,
+  updatePokeList,
+  updateFullInfo,
+  startPokeLoading,
+  failPokeLoading,
+  succeedPokeLoading,
 } from './pokemons/actions';
 import { saveToLocalStorage, saveToSessionStorage } from '../services/localStorage';
 import { setAuthorized, setUnauthorized } from './user/actions';

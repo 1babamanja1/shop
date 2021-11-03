@@ -11,6 +11,12 @@ import Button from '../../Components/Button';
 import { login } from '../../services/api/user';
 import { setAuthorized } from '../../redux/user/actions';
 
+const textErrors = {
+  401: 'User with this username is not registered',
+  409: 'Username and/or password is not correct',
+  default: 'Something went wrong, please try again later',
+};
+
 const Login = () => {
   const [logData, setLogData] = useState({});
   const [errors, setErrors] = useState({});
@@ -24,15 +30,13 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await login(logData);
-      if (response.token) {
-        dispatch(setAuthorized());
-        history.push('/home');
-      }
-    } catch (e) {
-      setErrors({ regError: e.message });
-    }
+
+    const response = await login(logData);
+
+    if (response?.status === 200) {
+      dispatch(setAuthorized());
+      history.push('/home');
+    } else setErrors({ regError: textErrors[response?.status] || textErrors.default });
   };
 
   return (
@@ -64,5 +68,5 @@ const Pic = styled.div`
 `;
 
 const Header = styled.h2`
-  color: ${(props) => props.theme.color}
+  color: ${(props) => props.theme.color};
 `;

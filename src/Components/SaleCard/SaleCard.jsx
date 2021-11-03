@@ -19,23 +19,21 @@ const SaleCard = ({ data }) => {
     <StyledSaleCard>
       <div>
         <Header>
-          <Link to={`/pokemons/${data.name}`}><h3>{data.name}</h3></Link>
+          <Link to={`/pokemons:${data.id}`}>
+            <h3>{data.name}</h3>
+          </Link>
           <h3>
             <FontAwesomeIcon icon={faCartPlus} onClick={clickHandler} />
           </h3>
         </Header>
-        <Link to={`/pokemons/${data.name}`}>
+        <Link to={`/pokemons:${data.id}`}>
           <Pic img={data.pic} />
         </Link>
       </div>
       <div>
         <h4>Type:</h4>
         {data.type.map((item) => (
-          <Type
-            pokeType={item}
-            pokeName={data.name}
-            key={`${item}_${data.name}`}
-          />
+          <Type pokeType={item} pokeName={data.name} key={`${item}_${data.name}`} />
         ))}
       </div>
     </StyledSaleCard>
@@ -66,7 +64,6 @@ SaleCard.propTypes = {
       category: PropTypes.string,
     }),
   }),
-
 };
 
 export default SaleCard;
@@ -74,21 +71,21 @@ export default SaleCard;
 const StyledSaleCard = styled.div`
   height: 350px;
   padding: 5px 10px;
-  
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  
-  border: 3px solid #535B6C;
+
+  border: 3px solid #535b6c;
   border-radius: 10px;
-  
+
   @media (max-width: 599px) {
     flex-direction: row;
     justify-content: space-around;
     height: 250px;
   }
-  & *{
+  & * {
     color: ${(props) => props.theme.color};
     text-decoration: none;
   }
@@ -106,12 +103,11 @@ const Header = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  & *{
+  & * {
     cursor: pointer;
-    &:hover{
+    &:hover {
       color: ${colors.orange};
       transition: 0.3s;
     }
   }
-  
 `;
