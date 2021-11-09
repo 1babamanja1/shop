@@ -1,7 +1,15 @@
-export const setAuthorized = () => ({
-  type: 'SET_AUTHORIZED',
+import userType from './consts';
+
+export const setAuthorized = (payload) => ({
+  type: userType.setAuthorized,
+  payload,
 });
 
 export const setUnauthorized = () => ({
-  type: 'SET_UNAUTHORIZED',
+  type: userType.setUnauthorized,
+});
+
+export const setRole = (payload) => ({
+  type: userType.setRole,
+  payload,
 });

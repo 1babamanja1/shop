@@ -3,13 +3,15 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import jwt from 'jwt-decode';
 
 import Form from '../../Components/Form';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 
 import { login } from '../../services/api/user';
-import { setAuthorized } from '../../redux/user/actions';
+import { setAuthorized, setRole } from '../../redux/user/actions';
+import httpCore from '../../services/httpCore';
 
 const textErrors = {
   401: 'User with this username is not registered',
@@ -34,7 +36,10 @@ const Login = () => {
     const response = await login(logData);
 
     if (response?.status === 200) {
-      dispatch(setAuthorized());
+      const token = response.headers['x-access-token'];
+      dispatch(setRole(jwt(token).role));
+      dispatch(setAuthorized(token));
+      httpCore.setAuthorizationToken(token);
       history.push('/home');
     } else setErrors({ regError: textErrors[response?.status] || textErrors.default });
   };

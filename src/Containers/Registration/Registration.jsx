@@ -24,15 +24,14 @@ const Registration = () => {
     event.preventDefault();
     const newErrors = validate(regData);
     if (Object.keys(newErrors).length === 0) {
-      try {
-        const response = await register(regData);
-        setErrors({});
-        if (response.status === 200) {
-          history.push('/login');
-        }
-      } catch (e) {
+      setErrors({});
+      const response = await register(regData);
+
+      if (response.status === 201) {
+        history.push('/login');
+      } else {
         event.preventDefault();
-        setErrors({ server: 'Something went wrong, please try again later' });
+        setErrors({ server: `User with this ${response.data.problem} is already redistered` });
       }
     } else {
       setErrors(newErrors);

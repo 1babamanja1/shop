@@ -42,6 +42,7 @@ const SaleCard = ({ data }) => {
 
 SaleCard.defaultProps = {
   data: {
+    id: '',
     name: '',
     pic: '',
     type: [],
@@ -55,6 +56,7 @@ SaleCard.defaultProps = {
 
 SaleCard.propTypes = {
   data: PropTypes.shape({
+    id: PropTypes.string,
     name: PropTypes.string,
     pic: PropTypes.string,
     type: PropTypes.arrayOf(PropTypes.string),

@@ -1,18 +1,27 @@
-import { getFromLocalStorage } from '../../services/localStorage';
+import jwt from 'jwt-decode';
+import { getFromCookie } from '../../services/localStorage';
+import userType from './consts';
 
 const defaultState = {
-  isAuthorized: getFromLocalStorage('isAuth') || false,
+  isAuthorized: getFromCookie('auth') || '',
+  role: getFromCookie('auth') ? jwt(getFromCookie('auth')).role : '',
 };
 
 function userReducer(state = defaultState, action) {
   switch (action.type) {
-    case 'SET_AUTHORIZED': {
-      return { ...state, isAuthorized: true };
+    case userType.setAuthorized: {
+      const token = action.payload;
+      return { ...state, isAuthorized: token };
     }
-    case 'SET_UNAUTHORIZED': {
-      return { ...state, isAuthorized: false };
+    case userType.setUnauthorized: {
+      return { ...state, isAuthorized: '' };
     }
-    default: return state;
+    case userType.setRole: {
+      const role = action.payload;
+      return { ...state, role };
+    }
+    default:
+      return state;
   }
 }
 

@@ -6,7 +6,9 @@ export const register = (payload) => {
     method: 'POST',
     data: payload,
   });
-  return endpoint();
+  return endpoint()
+    .then((res) => res)
+    .catch((e) => e.response);
 };
 
 export const login = (payload) => {

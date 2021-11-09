@@ -7,7 +7,7 @@ import DarkModeToggle from 'react-dark-mode-toggle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-import getAuthorized from '../../redux/user/selectors';
+import { getAuthorized, getRole } from '../../redux/user/selectors';
 import { getCurrentTheme } from '../../redux/common/selectors';
 import { getCartCounter } from '../../redux/cart/selectors';
 import { changeTheme } from '../../redux/common/actions';
@@ -20,6 +20,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const mode = useSelector(getCurrentTheme);
   const isAuth = useSelector(getAuthorized);
+  const role = useSelector(getRole);
   const cartCounter = useSelector(getCartCounter);
 
   const logOut = () => dispatch(setUnauthorized());
@@ -28,25 +29,33 @@ const Header = () => {
 
   return (
     <StyledHeader>
-      <Link to="/home" onClick={clrFilters}><h2>PokeDelivery</h2></Link>
-      {isAuth
-        ? (
-          <StyledNav props="flex-end">
-            <Link to="/home" onClick={clrFilters}>Home</Link>
+      <Link to="/home" onClick={clrFilters}>
+        <h2>PokeDelivery</h2>
+      </Link>
+      {isAuth ? (
+        <StyledNav props="flex-end">
+          <Link to="/home" onClick={clrFilters}>
+            Home
+          </Link>
+          {role === 'admin' ? (
+            <Link to="/admin">Admin Panel</Link>
+          ) : (
             <Link to="/cart">
               <FontAwesomeIcon icon={faShoppingCart} />
               {cartCounter}
             </Link>
-            <Link to="/login" onClick={logOut}>Logout</Link>
+          )}
 
-          </StyledNav>
-        )
-        : (
-          <StyledNav props="flex-end">
-            <Link to="/registration">Register</Link>
-            <Link to="/login">Login</Link>
-          </StyledNav>
-        )}
+          <Link to="/login" onClick={logOut}>
+            Logout
+          </Link>
+        </StyledNav>
+      ) : (
+        <StyledNav props="flex-end">
+          <Link to="/registration">Register</Link>
+          <Link to="/login">Login</Link>
+        </StyledNav>
+      )}
       <DarkModeToggle onChange={toggleTheme} checked={mode === 'dark'} size={60} />
     </StyledHeader>
   );
@@ -61,21 +70,20 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+
   & * {
-    color: ${colors.lightText};;
+    color: ${colors.lightText};
     text-decoration: none;
-   
   }
 `;
 const StyledNav = styled.div`
   width: 70%;
   display: flex;
   justify-content: ${(props) => props.props};
-  & > *{
+  & > * {
     margin: 0 15px;
   }
-  & *{
+  & * {
     margin-right: 5px;
   }
 `;

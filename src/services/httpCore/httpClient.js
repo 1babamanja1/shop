@@ -1,5 +1,4 @@
 import axios from 'axios';
-import requestHandler from './requestHandler';
 
 class HttpClient {
   constructor(config) {
@@ -15,8 +14,6 @@ class HttpClient {
     return async () => {
       const result = await this.axiosInstance({ url, ...reqSettings });
       return result;
-      // const auth = await requestHandler(url, { reqSettings, ...this.config });
-      // test requestHandler need to change
     };
   }
 }

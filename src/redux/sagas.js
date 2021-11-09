@@ -10,10 +10,10 @@ import {
   failPokeLoading,
   succeedPokeLoading,
 } from './pokemons/actions';
-import { saveToLocalStorage, saveToSessionStorage } from '../services/localStorage';
+import { saveToCookie, saveToLocalStorage, saveToSessionStorage } from '../services/localStorage';
 import { setAuthorized, setUnauthorized } from './user/actions';
 import { getCart, getCartCounter } from './cart/selectors';
-import getAuthorized from './user/selectors';
+import { getAuthorized } from './user/selectors';
 import { failLoading, startLoading, succeedLoading } from './common/actions';
 import pokeType from './pokemons/consts';
 import cartType from './cart/consts';
@@ -41,9 +41,9 @@ export function* getFull(data) {
   }
 }
 
-export function* setAuthToLocalStorage() {
-  const isAuth = yield select(getAuthorized);
-  yield saveToLocalStorage('isAuth', isAuth);
+export function* setAuthToCookie() {
+  const authData = yield select(getAuthorized);
+  yield saveToCookie('auth', authData);
 }
 export function* saveCartToSessionStorage() {
   const cart = yield select(getCart);
@@ -61,8 +61,8 @@ export function* sagaWatcher() {
   yield takeEvery(pokeType.getPokelist, getPokemons);
   yield takeEvery(pokeType.getFullPokeInfo, getFull);
 
-  yield takeEvery(setAuthorized().type, setAuthToLocalStorage);
-  yield takeEvery(setUnauthorized().type, setAuthToLocalStorage);
+  yield takeEvery(setAuthorized().type, setAuthToCookie);
+  yield takeEvery(setUnauthorized().type, setAuthToCookie);
 
   yield takeEvery(cartType.addToCart, saveCartToSessionStorage);
   yield takeEvery(cartType.removeOneFromCart, saveCartToSessionStorage);
