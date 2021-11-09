@@ -24,13 +24,14 @@ const Registration = () => {
     event.preventDefault();
     const newErrors = validate(regData);
     if (Object.keys(newErrors).length === 0) {
-      try {
-        const response = await register(regData);
-        setErrors({});
-        if (response.success) { history.push('/login'); }
-      } catch (e) {
+      setErrors({});
+      const response = await register(regData);
+
+      if (response.status === 201) {
+        history.push('/login');
+      } else {
         event.preventDefault();
-        setErrors({ server: 'Something went wrong, please try again later' });
+        setErrors({ server: `User with this ${response.data.problem} is already redistered` });
       }
     } else {
       setErrors(newErrors);
@@ -47,8 +48,19 @@ const Registration = () => {
       <Form handleSubmit={handleSubmit}>
         <Pic />
         <Header>Registration</Header>
-        <Input name="username" placeholder="Name" error={errors.username} onChangeHandler={onChangeHandler} />
-        <Input name="email" placeholder="Email" type="email" error={errors.email} onChangeHandler={onChangeHandler} />
+        <Input
+          name="username"
+          placeholder="Name"
+          error={errors.username}
+          onChangeHandler={onChangeHandler}
+        />
+        <Input
+          name="email"
+          placeholder="Email"
+          type="email"
+          error={errors.email}
+          onChangeHandler={onChangeHandler}
+        />
         <Input
           name="password"
           placeholder="Password"
@@ -76,8 +88,8 @@ const Pic = styled.div`
   background-image: url('/imgs/register_abra.png');
   background-position: center;
   background-size: cover;
-  `;
+`;
 
 const Header = styled.h2`
-  color: ${(props) => props.theme.color}
+  color: ${(props) => props.theme.color};
 `;

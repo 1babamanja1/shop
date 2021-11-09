@@ -1,27 +1,19 @@
-import pokeList from '../../pokeList.json';
 import httpCore from '../httpCore';
 
 const delay = (del) => new Promise((resolve) => setTimeout(() => resolve(true), del));
 
-export const getPokemon = () => delay(1000).then(() => {
+export const getPokemon = () => {
   const endpoint = httpCore.createFetch({
-    url: '/pokemons',
+    url: '/api/pokemon-list',
     method: 'GET',
   });
-  let pokes = endpoint();
-  pokes = pokeList;
-  return pokes;
-});
+  return endpoint().then((res) => res.data);
+};
 
-export const getFullPokeData = (name) => delay(1000).then(() => {
+export const getFullPokeData = (id) => delay(1000).then(() => {
   const endpoint = httpCore.createFetch({
-    url: '/pokemons',
+    url: `/api/pokemons${id}`,
     method: 'GET',
   });
-  let pokes = endpoint();
-  pokes = pokeList;
-  const index = pokes.findIndex((item) => item.name === name);
-  return pokes[index];
+  return endpoint().then((res) => res.data);
 });
-
-export default getPokemon;

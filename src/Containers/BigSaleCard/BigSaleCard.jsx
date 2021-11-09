@@ -19,17 +19,22 @@ import Preloader from '../../Components/Preloader';
 
 const BigSaleCard = () => {
   const dispatch = useDispatch();
-  const { pokeName } = useParams();
+  const { id } = useParams();
 
-  useEffect(() => {
-    dispatch(getFullInfo(pokeName));
-  }, [dispatch, pokeName]);
+  useEffect(
+    () => {
+      dispatch(getFullInfo(id));
+    },
+    [dispatch, id],
+  );
 
   const isPokeLoading = useSelector(getPokeLoadStatus);
-  const pokeData = useSelector(getFullInfoSelector);
-  const clickHandler = () => { dispatch(addToCart(pokeData)); };
+  const pokeData = useSelector(getFullInfoSelector)[0];
+  const clickHandler = () => {
+    dispatch(addToCart(pokeData));
+  };
 
-  if (Object.keys(pokeData).length === 0) {
+  if (isPokeLoading) {
     return <Preloader />;
   }
 
@@ -37,7 +42,8 @@ const BigSaleCard = () => {
   const age = moment().diff(birthdate, 'years');
 
   const createData = (name, value) => ({
-    name, value,
+    name,
+    value,
   });
   const row = [
     createData('Weight:', pokeData.details.weight),
@@ -47,53 +53,39 @@ const BigSaleCard = () => {
   ];
 
   return (
-    <div>
-      {isPokeLoading
-        ? <Preloader />
-        : (
-          <StyledCard>
-            <Pic img={pokeData.pic} />
-            <Body>
-              <Header>{pokeData.name}</Header>
-              <TableContainer>
-                <Table>
-                  <TableBody>
-                    {row.map((item) => (
-                      <TableRow key={item.name}>
-                        <TableCell sx={{ color: 'inherit' }}>{item.name}</TableCell>
-                        <TableCell sx={{ color: 'inherit' }}>{item.value}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+    <StyledCard>
+      <Pic img={pokeData.pic} />
+      <Body>
+        <Header>{pokeData.name}</Header>
+        <TableContainer>
+          <Table>
+            <TableBody>
+              {row.map((item) => (
+                <StyledTableRow key={item.name}>
+                  <TableCell sx={{ color: 'inherit', padding: '5px 10px' }}>{item.name}</TableCell>
+                  <TableCell sx={{ color: 'inherit', padding: '5px 10px' }}>{item.value}</TableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
-              <Info>
-                <h4>Type: </h4>
-                {pokeData.type.map((item) => (
-                  <Type
-                    pokeType={item}
-                    pokeName={pokeData.name}
-                    key={`${item}_${pokeData.name}`}
-                  />
-                ))}
-              </Info>
-              <Info>
-                <h4>Weakness: </h4>
-                {pokeData.details.weakness.map((item) => (
-                  <Type
-                    pokeType={item}
-                    pokeName={pokeData.name}
-                    key={`${item}_${pokeData.name}`}
-                  />
-                ))}
-              </Info>
+        <Info>
+          <h4>Type: </h4>
+          {pokeData.type.map((item) => (
+            <Type pokeType={item} pokeName={pokeData.name} key={`${item}_${pokeData.name}`} />
+          ))}
+        </Info>
+        <Info>
+          <h4>Weakness: </h4>
+          {pokeData.details.weakness.map((item) => (
+            <Type pokeType={item} pokeName={pokeData.name} key={`${item}_${pokeData.name}`} />
+          ))}
+        </Info>
 
-              <Button buttonName="Add to Cart" onClick={clickHandler} />
-            </Body>
-          </StyledCard>
-        )}
-    </div>
+        <Button buttonName="Add to Cart" onClick={clickHandler} />
+      </Body>
+    </StyledCard>
   );
 };
 
@@ -101,27 +93,30 @@ export default BigSaleCard;
 
 const StyledCard = styled.div`
   width: 900px;
-  height: calc(100vh - 80px);
+  padding: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  color: ${(props) => props.theme.color}
+  color: ${(props) => props.theme.color};
+  background-color: ${(props) => props.theme.bigCardColor};
+  border: 1px solid ${colors.grey};
+  border-radius: 10px;
 `;
 
 const Header = styled.h2`
-  color: ${colors.orange}
+  color: ${colors.orange};
   text-decoration: none;
 `;
 const Pic = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   background-image: url(${(props) => props.img});
   background-position: center;
   background-size: contain;
 `;
 const Body = styled.div`
-  min-width: 200px;
+  width: 66%;
 `;
 
 const Info = styled.div`
@@ -133,5 +128,12 @@ const Info = styled.div`
 
   & * {
     margin-right: 7px;
+  }
+`;
+
+const StyledTableRow = styled(TableRow)`
+  :nth-child(2n) {
+    background-color: ${colors.grey};
+    color: ${colors.darkGrey};
   }
 `;
