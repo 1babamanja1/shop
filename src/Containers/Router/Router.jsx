@@ -7,50 +7,66 @@ import Header from '../../Components/Header';
 import Homepage from '../Homepage/Homepage';
 import Login from '../Login/Login';
 import Registration from '../Registration/Registration';
-import BigSaleCard from '../../Components/BigSaleCard';
+import BigSaleCard from '../BigSaleCard';
 import ProtectedRoute from './ProtectedRoute';
 import Cart from '../Cart';
+import AdminPanel from '../AdminPanel';
 
-import getAuthorized from '../../redux/user/selectors';
+import { getAuthorized, getRole } from '../../redux/user/selectors';
 import { getPokeList } from '../../redux/pokemons/actions';
-import { getLoadingStatus } from '../../redux/pokemons/selectors';
+import { getLoadingStatus } from '../../redux/common/selectors';
+import Preloader from '../../Components/Preloader';
+import httpCore from '../../services/httpCore';
+import AddPokemonForm from '../AdminPanel/AddPokemonForm';
 
-export default function ShopRouter() {
+const ShopRouter = () => {
   const isAuthorized = useSelector(getAuthorized);
   const isLoading = useSelector(getLoadingStatus);
+  const role = useSelector(getRole);
+
+  httpCore.setAuthorizationToken(isAuthorized);
 
   const dispatch = useDispatch();
-  useEffect(() => { if (isAuthorized) dispatch(getPokeList()); }, [dispatch, isAuthorized]);
-
-  const LoadedPage = () => (
-    <Container>
-      <Route exact path="/"><Redirect to="/home" /></Route>
-      <ProtectedRoute
-        exact
-        path="/home"
-        component={Homepage}
-        isAuth={isAuthorized}
-      />
-      <Route exact path="/registration" component={Registration} />
-      <Route exact path="/login" component={Login} />
-      <ProtectedRoute exact path="/pokemons/:pokeName" component={BigSaleCard} isAuth={isAuthorized} />
-      <ProtectedRoute exact path="/cart" component={Cart} isAuth={isAuthorized} />
-    </Container>
+  useEffect(
+    () => {
+      if (isAuthorized) {
+        dispatch(getPokeList());
+      }
+    },
+    [dispatch, isAuthorized],
   );
-
-  const Preloader = () => <div>Preloader</div>;
-
-  const body = (!isLoading) ? <LoadedPage /> : <Preloader />;
 
   return (
     <Router>
       <Header />
       <Body>
-        {body}
+        {isLoading && !!isAuthorized ? (
+          <Preloader />
+        ) : (
+          <Container>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+            <ProtectedRoute exact path="/home" component={Homepage} isAuth={!!isAuthorized} />
+            <Route exact path="/registration" component={Registration} />
+            <Route exact path="/login" component={Login} />
+            <ProtectedRoute
+              exact
+              path="/pokemons:id"
+              component={BigSaleCard}
+              isAuth={!!isAuthorized}
+            />
+            <ProtectedRoute exact path="/cart" component={Cart} isAuth={!!isAuthorized} />
+            <ProtectedRoute exact path="/admin" component={AdminPanel} isAuth={role === 'admin'} />
+            <ProtectedRoute exact path="/add_pokemon" component={AddPokemonForm} isAuth={role === 'admin'} />
+          </Container>
+        )}
       </Body>
     </Router>
   );
-}
+};
+
+export default ShopRouter;
 
 const Body = styled.div`
   padding-top: 20px;

@@ -6,7 +6,13 @@
   "details": {
     "height": 2.04,
     "weight": 15.2,
-    "category": "seed"
+    "birthday": "14/02/2018",
+    "category": "Seed",
+    "weakness": [
+      "Fire", "Physic",
+      "Flying",
+      "Ice"
+    ]
   }
 },
   {
@@ -17,20 +23,22 @@
     "details": {
       "height": 2.00,
       "weight": 18.7,
-      "category": "lizard"
+      "birthday": "09/03/2014",
+      "category": "Lizard",
+      "weakness": ["Water", "Ground", "Rock"]
     }
   },
   {
     "id": "007",
     "name": "Squirtle",
     "pic": "/imgs/007_squirtle.png",
-    "type": [
-      "Water"
-    ],
+    "type": ["Water"],
     "details": {
       "height": 1.08,
       "weight": 19.8,
-      "category": "Tiny Turtle"
+      "birthday": "12/03/2017",
+      "category": "Tiny Turtle",
+      "weakness": ["Grass","Electric"]
     }
   },
   {
@@ -41,7 +49,35 @@
     "details": {
       "height": 2.04,
       "weight": 21.8,
-      "category": "Cocoon"
+      "birthday": "08/06/2016",
+      "category": "Cocoon",
+      "weakness": ["Fire", "Flying", "Rock"]
+    }
+  },
+  {
+    "id":"015",
+    "name": "Beedrill",
+    "pic": "/imgs/015_beedrill.png",
+    "type": ["Bug", "Poison"],
+    "details": {
+      "height": 3.03,
+      "weight": 65.0,
+      "birthday": "11/11/2011",
+      "category": "Poison Bee",
+      "weakness": ["Fire", "Flying", "Rock", "Physic"]
+    }
+  },
+  {
+    "id":"023",
+    "name": "Ekans",
+    "pic": "/imgs/023_ekans.png",
+    "type": ["Poison"],
+    "details": {
+      "height": 6.07,
+      "weight": 15.2,
+      "birthday": "08/06/2017",
+      "category": "Snake",
+      "weakness": ["Physic", "Ground"]
     }
   }
 ]

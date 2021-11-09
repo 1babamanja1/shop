@@ -1,22 +1,40 @@
+import pokeType from './consts';
+
 const defaultState = {
-  inLoading: false,
-  successLoad: false,
   pokeList: [],
+  showList: [],
+  fullPokeInfo: {},
+  inPokeLoading: true,
+  successPokeLoad: false,
 };
 
 function pokeReducer(state = defaultState, action) {
   switch (action.type) {
-    case 'UPDATE_POKELIST': {
-      return { ...state, pokeList: action.payload };
+    case pokeType.updatePokelist: {
+      return { ...state, pokeList: action.payload, showList: action.payload };
     }
-    case 'START_LOADING': {
-      return { ...state, inLoading: true };
+    case pokeType.updateFullPokeInfo: {
+      return { ...state, fullPokeInfo: action.payload };
     }
-    case 'SUCCEED_LOADING': {
-      return { ...state, inLoading: false, successLoad: true };
+    case pokeType.clearFullInfo: {
+      return { ...state, fullPokeInfo: {} };
     }
-    case 'FAIL_LOADING': {
-      return { ...state, inLoading: false, successLoad: false };
+    case pokeType.filterType: {
+      let newPokeList = [...state.pokeList];
+      newPokeList = newPokeList.filter((item) => item.type.includes(action.payload));
+      return { ...state, showList: newPokeList };
+    }
+    case pokeType.clearFilters: {
+      return { ...state, showList: state.pokeList };
+    }
+    case pokeType.startPokeLoading: {
+      return { ...state, inPokeLoading: true, successPokeLoad: false };
+    }
+    case pokeType.succeedPokeLoading: {
+      return { ...state, inPokeLoading: false, successPokeLoad: true };
+    }
+    case pokeType.failPokeLoading: {
+      return { ...state, inPokeLoading: false, successPokeLoad: false };
     }
     default: return state;
   }

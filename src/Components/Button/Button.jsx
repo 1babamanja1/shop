@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Colors } from '../../Theme/theme';
+import { colors } from '../../Theme/theme';
 
 const Button = ({ onClick, buttonName, type }) => (
   <StyledButton type={type} onClick={onClick}><h4>{buttonName}</h4></StyledButton>);
@@ -23,8 +23,8 @@ Button.propTypes = {
 const StyledButton = styled.button`
   min-width: 100px;
   padding: 10px;
-  background-color: ${Colors('orange')};
-  color: ${Colors('light-text')};
+  background-color: ${colors.orange};
+  color: ${colors.lightText};
   outline: none;
   border: none;
   border-radius: 10px;
